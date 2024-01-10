@@ -3,10 +3,16 @@ import { Inputs } from './Inputs'
 
 export default function Form() {
   const [selectedValue, setSelectedValue] = useState('');
+  const[selectOption,setSelectoption]=useState('');
+
 
   const handleCheckboxChange = (event) => {
     setSelectedValue(event.target.value);
   };
+  const handleChange=(event)=>{
+    setSelectoption(event.target.value);
+  }
+
    
     const options = [
       { value: "Select", label: "Select" },
@@ -61,7 +67,7 @@ export default function Form() {
             placeH="Applicant Income"
             type="select"
             options={options}
-            onchange=""
+            onChange={handleChange}
            />
             <Inputs
             label="Gender"
@@ -70,7 +76,7 @@ export default function Form() {
             placeH="Gender"
             type="select"
             options={Gender}
-            onchange=""
+            onChange={handleChange}
            />
             <Inputs
             label="Property Area"
@@ -79,7 +85,7 @@ export default function Form() {
             placeH="Property Area"
             type="select"
             options={options}
-            onchange=""
+            onChange={handleChange}
            />
       
             <Inputs
