@@ -1,7 +1,7 @@
 import React from "react";
 
 export 
-const Inputs = ({ label, type, placeH, basis = 100,onChange,options, ...props }) => (
+const Inputs = ({ label, type, placeH, basis = 100,options, ...props }) => (
 
     <div className={`basis-full lg:basis-[${basis}%]`}>
       {type === 'checkbox' ? (
@@ -20,7 +20,7 @@ const Inputs = ({ label, type, placeH, basis = 100,onChange,options, ...props })
             <select
               {...props}
               required
-              onChange={onChange} // Use the provided onChange event here
+              // Use the provided onChange event here
               className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium form-control active:border-primary"
             >
               <option value="">{placeH}</option>
@@ -36,6 +36,8 @@ const Inputs = ({ label, type, placeH, basis = 100,onChange,options, ...props })
               type={type}
               required
               placeholder={placeH}
+              value={props.value}
+  onChange={props.onChange}
               className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium form-control active:border-primary"
             />
           )}

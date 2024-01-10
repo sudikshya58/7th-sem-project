@@ -58,7 +58,7 @@ export default function Form() {
             type="select"
             placeH="Education"
             options={Education}
-            onchange=""
+            onChange=""
            />
              <Inputs
             label="Applicant Income"

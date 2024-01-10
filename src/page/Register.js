@@ -2,53 +2,64 @@ import { useEffect, useState } from "react"
 import Navbar from "../component/Navbar";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import axios from 'axios';
-
-
-
-
+import { Inputs } from "../component/Inputs";
 export default function Register() {
-  const [data, setData] = useState([]);
+
     const initialForm={
-        name:"",
-        password:"",
-        email:"",
-        phone:"",
+        username:"",
+        userpassword:"",
+        useremail:"",
+        userphone:"",
         confirmpassword:"",
     }
-    useEffect(() => {
-      const fetchApiData = async () => {
-        try {
-          const response = await axios.post('https://your-api-endpoint.com/register', form);
-          console.log('Response from API:', response.data);
-          // Handle success, update UI, etc.
-          setData(response.data?.data);
-        } catch (err) {
-          console.error(err);
-        }
-      };
+    const [form, setForm] = useState(initialForm);
+    const [alldata, setAllData] = useState([]);
+    const handleInputChange = (e) => {
+      const { name, value } = e.target;
+      setForm((prevForm) => ({
+        ...prevForm,
+        [name]: value,
+      }));
+    };
   
-      fetchApiData();
-    }, [form]);
+    console.log(form)
+ 
+    const submitForm = async (e) => {
+      e.preventDefault();
+  
+      try {
+        const response = await axios.post('http://127.0.0.1:5000/registers', form, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            // Add any other headers if required
+          },
+        });
+  
+        console.log(response);
+  
+        if (response.status === 200) {
+          const responseData = response.data;
+          setAllData([...alldata, responseData]);
+          console.log(responseData);
+  
+          // Redirect to the home page upon successful login
+          // navigate('/home');// Replace '/home' with the desired route
+        } else {
+          console.error('Error:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
     const [showPassword,setShowPassword]=useState("");
   
     const togglePassword = () => {
         setShowPassword((prevShowPassword) => !prevShowPassword);
       };
-    const[alldata,setAllData]=useState([])
-    const [form,setForm]=useState(initialForm)
-    const handleinputChange = (e) => {
-        const { name, value } = e.target;
-        setForm((prevform) => ({
-          ...prevform,
-          [name]: value, // Corrected - stores value directly without brackets
-        }));
-      };
-    const handleSubmit=(e)=>{
-        e.preventDefault()
-        const Newdata={...form}
-        setAllData([...alldata,Newdata]);
-        console.log("Stored Data:", alldata);
-    }
+  
+  
+    
     console.log(form)
     console.log(alldata)
   return (
@@ -56,12 +67,61 @@ export default function Register() {
     <Navbar/>
     <div className="flex  flex-col justify-center items-center h-[100vh]"> 
     <div><h1>Register Your Account</h1></div>
-    <form  className="  ">
+    <form  className="  " onSubmit={submitForm}>
     <div className="flex flex-col   items-center  justify-center gap-4">
-    <input type="text" placeholder="Enter Name" name="name" className="w-60 p-2 border  border-r-2 focus:outline-none  border-gray-500" value={form.name} onChange={handleinputChange}/>
-    <input type="number" placeholder="Enter Phone" name="phone" className="w-60 p-2 border border-r-2 focus:outline-none  border-gray-500" value={form.phone} onChange={handleinputChange}/>
-    <input type="email" placeholder="Enter email" name="email" className="w-60 border p-2 border-r-2 focus:outline-none  border-gray-500" value={form.email} onChange={handleinputChange}/>
-    <div className="flex   border border-gray-500  items-center w-60">
+    <Inputs
+            label="user name"
+            basis={100}
+         
+            value={form.username}
+            type={"text"}
+            onchange=""
+            placeH="Full Name"
+            onChange={(e) =>
+                        setForm({ ...form, username: e.target.value })
+                      }
+           />
+                   <Inputs
+            label="Email"
+            basis={100}
+            name="useremail"
+           value={form.useremail}
+            type= {"text" }
+            onchange=""
+            placeH="confirm-password"
+            onChange={handleInputChange}/>
+              <Inputs
+            label="phone number"
+            basis={100}
+            name="userphone"
+          value={form.userphone}
+            type={"number"}
+            pattern="[0-9]{10}"
+          
+            placeH="phone number"
+            onChange={handleInputChange}
+           />
+                 <Inputs
+            label="password "
+            basis={100}
+            name="userpassword"
+        value={form.userpassword}
+            type= {showPassword ? "text" :"password"}
+            onchange=""
+            placeH="password"
+            onChange={handleInputChange}
+           />
+                      <Inputs
+            label="Confirm Password"
+            basis={100}
+            name="confirmpassword"
+           value={form.confirmpassword}
+            type= {showPassword ? "text" :"password"}
+            onchange=""
+            placeH="confirm-password"
+            onChange={handleInputChange}
+           />
+    {/* <div className="flex   border border-gray-500  items-center w-60">
       <input
         type= {showPassword ? "text" :"password"}
         placeholder="Enter Password"
@@ -77,12 +137,13 @@ export default function Register() {
        
 
     
-    </div>
-    <input type="password" placeholder="Enter Confirm  Password" name="confirmpassword" className="w-60 p-2 border border-r-2 focus:outline-none  border-gray-500" value={form.confirmpassword} onChange={handleinputChange}/>
-    </div>
-    <button className="w-60 border border-r-2 mt-6 bg-blue-400 p-3 rounded text-white" onSubmit={handleSubmit}>Register</button>
+    </div> */}
 
-</form></div>
+    </div>
+    <button className="w-60 border border-r-2 mt-6 bg-blue-400 p-3 rounded text-white" type="submit">Register</button>
+
+</form>
+</div>
 </>
   )
 }

@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 // import { navigate } from 'react-router-dom';
 import Navbar from '../component/Navbar';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 
-export default function Login() {
+export default function Register() {
 // Initialize useHistory hook
 
   const initialForm = {
@@ -28,17 +27,19 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://127.0.0.1:5000/login', form, {
+      const response = await fetch('http://127.0.0.1:5000/signin', {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           // Add any other headers if required
         },
+        body: JSON.stringify(form),
       });
 
-      console.log(response);
+      console.log(response)
 
-      if (response.status === 200) {
-        const responseData = response.data;
+      if (response.ok) {
+        const responseData = await response.json();
         setAllData([...alldata, responseData]);
         console.log(responseData);
 
@@ -48,6 +49,7 @@ export default function Login() {
         console.error('Error:', response.statusText);
       }
     } catch (error) {
+      console.log(error)
       console.error('Error:', error);
     }
   };
@@ -85,10 +87,12 @@ export default function Login() {
               />
             </div>
             <button className='bg-blue-300 p-2 mt-4 w-44 rounded' type='submit'>
-              Register
+              Login
             </button>
           </form>
-        
+          <Link to='/register'>
+            <h1 className=' flex justify-center'>Register Your Account</h1>
+          </Link>
         </div>
       </div>
     </>
