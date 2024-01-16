@@ -1,22 +1,56 @@
-
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes, Link, Navigate } from 'react-router-dom';
 import Home from './page/Home';
 import Login from './page/Login';
 import Register from './page/Register';
 import Registers from './page/Registers';
+import { About } from './page/About';
+import { AuthProvider} from './component/auth';
+import Logout from './page/Logout';
+import { Contact } from './page/Contact';
+import Prediction from './page/Prediction';
 
 function App() {
   return (
     <div className="App">
-     <Router>
-      <Routes>
-        <Route path='/' exact element={<Home/>}></Route>
-        <Route path='/login' element={<Login/>}></Route>
-        <Route path="/register" element={<Register/>}></Route>
-
-        <Route path="/registers" element={<Registers/>}></Route>
-      </Routes>
-     </Router>
+      <Router>
+        <AuthProvider>
+          <Routes>
+            <Route
+              path="/"
+              element={<Home />}
+            />
+            <Route
+              path="/about"
+              element={<About />}
+            />
+               <Route
+              path="/contact"
+              element={<Contact />}
+            />
+            <Route
+              path="/login"
+              element={<Login />}
+            />
+              <Route
+              path="/"
+              element={<Logout />}
+            />
+            <Route
+              path="/register"
+              element={<Register />}
+            />
+              <Route
+              path="/prediction"
+              element={<Prediction />}
+            />
+            <Route
+              path="/registers"
+              element={<Registers />}
+            />
+          </Routes>
+        </AuthProvider>
+      </Router>
     </div>
   );
 }

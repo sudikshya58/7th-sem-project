@@ -12,6 +12,8 @@ export default function Register() {
         userphone:"",
         confirmpassword:"",
     }
+    const [successfulMessage,setSuccessfulMessage]=useState('');
+
     const [form, setForm] = useState(initialForm);
     const [alldata, setAllData] = useState([]);
     const handleInputChange = (e) => {
@@ -23,6 +25,7 @@ export default function Register() {
     };
   
     console.log(form)
+   
  
     const submitForm = async (e) => {
       e.preventDefault();
@@ -38,18 +41,26 @@ export default function Register() {
   
         console.log(response);
   
-        if (response.status === 200) {
+        if (response.status === 201) {
           const responseData = response.data;
           setAllData([...alldata, responseData]);
           console.log(responseData);
-  
+     
+          setSuccessfulMessage(responseData.message);
           // Redirect to the home page upon successful login
           // navigate('/home');// Replace '/home' with the desired route
         } else {
           console.error('Error:', response.statusText);
+          setSuccessfulMessage(response.statusText);
         }
-      } catch (error) {
-        console.error('Error:', error);
+      } 
+      catch (error) {
+        if (error.response && error.response.status === 409) {
+          setSuccessfulMessage("Email already exists. Please use a different email.");
+        }
+        else{
+          console.error('Error:', error);
+        }
       }
     };
     const [showPassword,setShowPassword]=useState("");
@@ -66,11 +77,13 @@ export default function Register() {
     <>
     <Navbar/>
     <div className="flex  flex-col justify-center items-center h-[100vh]"> 
-    <div><h1>Register Your Account</h1></div>
+    {successfulMessage && (<h1>{successfulMessage}</h1>)}
+
+    <div><h1 className="font-extrabold text-[28px] mb-6">Register Your Account</h1></div>
     <form  className="  " onSubmit={submitForm}>
-    <div className="flex flex-col   items-center  justify-center gap-4">
+    <div className="flex flex-col   items-center  bg-[rgb(226,226,236)]  p-10 justify-center gap-4">
     <Inputs
-            label="user name"
+          
             basis={100}
          
             value={form.username}
@@ -82,16 +95,18 @@ export default function Register() {
                       }
            />
                    <Inputs
-            label="Email"
+          
             basis={100}
             name="useremail"
            value={form.useremail}
             type= {"text" }
             onchange=""
-            placeH="confirm-password"
-            onChange={handleInputChange}/>
+            placeH="user email "
+            onChange={(e) =>
+                        setForm({ ...form, useremail: e.target.value })
+                      }/>
               <Inputs
-            label="phone number"
+          
             basis={100}
             name="userphone"
           value={form.userphone}
@@ -99,50 +114,47 @@ export default function Register() {
             pattern="[0-9]{10}"
           
             placeH="phone number"
-            onChange={handleInputChange}
+            onChange={(e) =>
+                        setForm({ ...form, userphone: e.target.value })
+                      }
            />
-                 <Inputs
-            label="password "
-            basis={100}
-            name="userpassword"
-        value={form.userpassword}
-            type= {showPassword ? "text" :"password"}
-            onchange=""
-            placeH="password"
-            onChange={handleInputChange}
-           />
-                      <Inputs
-            label="Confirm Password"
-            basis={100}
-            name="confirmpassword"
-           value={form.confirmpassword}
-            type= {showPassword ? "text" :"password"}
-            onchange=""
-            placeH="confirm-password"
-            onChange={handleInputChange}
-           />
-    {/* <div className="flex   border border-gray-500  items-center w-60">
-      <input
-        type= {showPassword ? "text" :"password"}
-        placeholder="Enter Password"
-        name="password"
-        className="w-full h-full  focus:outline-none p-2"
-        value={form.password}
-        onChange={handleinputChange}
-      />
-     
-     {showPassword ?(  <IoEyeOutline className="h-6 w-6  ml-4"  onClick={togglePassword} />):(   <IoEyeOffOutline className="h-6 w-6  ml-4 " onClick={togglePassword} />)}
-      
-     
-       
-
-    
-    </div> */}
-
+                <div className="relative">
+  <Inputs
+    basis={100}
+    name="userpassword"
+    value={form.userpassword}
+    type={showPassword ? "text" : "password"}
+    placeH="password"
+    onChange={(e) => setForm({ ...form, userpassword: e.target.value })}
+  />
+  {showPassword ? (
+    <IoEyeOutline className="h-6 w-6 absolute top-1/2 transform -translate-y-1/2 right-4 cursor-pointer" onClick={togglePassword} />
+  ) : (
+    <IoEyeOffOutline className="h-6 w-6 absolute top-1/2 transform -translate-y-1/2 right-4 cursor-pointer" onClick={togglePassword} />
+  )}
+</div>
+         <div className="relative">
+  <Inputs
+    basis={100}
+    name="confirmpassword"
+    value={form.confirmpasswordpassword}
+    type={showPassword ? "text" : "password"}
+    placeH="confirm password"
+    onChange={(e) => setForm({ ...form, confirmpassword: e.target.value })}
+  />
+  {showPassword ? (
+    <IoEyeOutline className="h-6 w-6 absolute top-1/2 transform -translate-y-1/2 right-4 cursor-pointer" onClick={togglePassword} />
+  ) : (
+    <IoEyeOffOutline className="h-6 w-6 absolute top-1/2 transform -translate-y-1/2 right-4 cursor-pointer" onClick={togglePassword} />
+  )}
+</div>
     </div>
     <button className="w-60 border border-r-2 mt-6 bg-blue-400 p-3 rounded text-white" type="submit">Register</button>
 
 </form>
+
+
+
 </div>
 </>
   )

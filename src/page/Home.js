@@ -1,14 +1,28 @@
 import React from 'react'
 import Navbar from '../component/Navbar'
-import Form from '../component/Form'
+import { Link } from 'react-router-dom'
+
 
 export default function Home() {
   return (
 <>
 <div>
-<Navbar/>
-    <h1 className=''>Welcome to the home page</h1>
-    <Form/>
+
+  <div className='flex '>
+    <div className='basis-50 w-[50%] '>
+    <Navbar/>
+    <div className='flex justify-center items-center flex-col translate-y-44'>
+ 
+      <h1 className='text-6xl font-extrabold'>Loan Prediction </h1>
+      <h1 className="font-bold mt-8 text-4xl text-blue-700">Using Machine Learning</h1>
+    <Link to="/prediction"> <button className='bg-black font-bold text-3xl p-4 text-white rounded-2xl w-80 mt-6'>Prediction</button></Link> 
+      </div>
+    </div>
+    <div className='basis-50'>
+      <figure className=''><img src="https://st4.depositphotos.com/13193658/19840/i/450/depositphotos_198405730-stock-photo-happy-young-businessman-working-laptop.jpg" className='h-[100vh] '/></figure>
+    </div>
+  </div>
+   
     </div>
 </>
   )

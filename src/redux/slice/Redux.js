@@ -17,7 +17,7 @@ const Redux = createSlice({
       state.isLoading = false;
       state.data = action.payload;
     });
-    builder.addCase(fetchRedux.pending, (state, action) => {
+    builder.addCase(fetchRedux.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(fetchRedux.rejected, (state, action) => {

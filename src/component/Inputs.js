@@ -9,13 +9,13 @@ const Inputs = ({ label, type, placeH, basis = 100,options, ...props }) => (
           <input
             {...props}
             type="checkbox"
-            className="mr-2 appearance-none rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium form-control  active:border-primary"
+            className="mr-2 appearance-none rounded border-[1.5px] border-stroke bg-transparent py-3  px-5 font-medium form-control  active:border-primary"
           />
           <label className="font-bold text-[#141312]">{label}</label>
         </div>
       ) : (
         <>
-          <label className="mb-1 font-bold text-[#141312]">{label}</label>
+          <label className="mb-1 font-bold  text-[#141312]">{label}</label>
           {type === 'select' ? (
             <select
               {...props}
@@ -38,7 +38,7 @@ const Inputs = ({ label, type, placeH, basis = 100,options, ...props }) => (
               placeholder={placeH}
               value={props.value}
   onChange={props.onChange}
-              className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium form-control active:border-primary"
+              className="border-none font-sans  w-96 text-[15px] p-3   border-r-[6px] border-red-600"
             />
           )}
         </>
