@@ -1,7 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../component/Navbar';
+import { useNavigate } from 'react-router-dom';
 
 export default function Prediction() {
+  const getEmail=localStorage.getItem("useremail")
+      console.log(getEmail);
+      const getPassword=localStorage.getItem("userpassword")
+  // const navigate = useNavigate();
+  // useEffect(() => {
+  //   // Check if access token is present in localStorage
+  //   const accessToken = localStorage.getItem('jwt_access_token');
+
+  //   // If access token is not present, redirect to login page
+  //   if (!accessToken) {
+  //     navigate('/login');
+  //   }
+  // }, []);
   const label = "mb-[1px] font-bold  text-[#141312]";
   const input="w-72 p-2 border placeholder:text-black";
   const [formData, setFormData] = useState({
@@ -32,7 +46,7 @@ export default function Prediction() {
   return (
     <>
       <Navbar />
-      <div>
+      {getEmail&&getPassword?(  <div>
         <form onSubmit={handleSubmit}>
         <div className='flex flex-wrap gap-10  mx-40 my-40'>
           <div className='flex flex-col' >
@@ -200,7 +214,8 @@ export default function Prediction() {
 
           <button type="submit" className=" mx-40 w-60 p-4 bg-red-400 text-white font-bold">submit</button>
         </form>
-      </div>
+      </div>):<div><h1>login </h1></div>}
+    
     </>
   );
 }
