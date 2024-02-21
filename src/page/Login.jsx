@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 // import { navigate } from 'react-router-dom';
-import Navbar from '../component/Navbar';
+
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
-export default function Login() {
+export default function Login
+() {
 // Initialize useHistory hook
 
   const initialForm = {
-    email: '',
-    password: '',
+    useremail: '',
+    userpassword: '',
   };
   const navigate = useNavigate();
   const [form, setForm] = useState(initialForm);
-  const [alldata, setAllData] = useState([]);
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -22,39 +23,23 @@ export default function Login() {
       [name]: value,
     }));
   };
+  const handleSubmit = () => {
+    axios.post(
+      'your_api_endpoint',
+      {
+        // Your data to be sent in the request
+      }
+    )
+      .then(result => {
+        console.log(result);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+  
 
   console.log(form)
-
-  const submitForm = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await axios.post('http://127.0.0.1:5000/logintoken', form, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          // Add any other headers if required
-        },
-      });
-
-      console.log(response);
-
-      if (response.data && response.data.access_token) {
-        const responseData = response.data;
-        setAllData([...alldata, responseData]);
-        console.log(responseData);
-        navigate('/about');
-
-        // Redirect to the home page upon successful login
-        // navigate('/home');// Replace '/home' with the desired route
-      } else {
-        console.error('Error:', response.statusText);
-      }
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
-
   return (
     <>
 
@@ -67,7 +52,7 @@ export default function Login() {
                 <p className='text-[20px]'>Please enter your details.</p>
             </div>
         <div className=' bg-[rgb(226,226,236)] rounded '>
-          <form onSubmit={submitForm} className='p-10' >
+          <form onSubmit="" className='p-10' >
             <div className=''>
               <label className='font-bold '>Email</label>
               <br />
