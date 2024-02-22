@@ -13,7 +13,7 @@ import Logged from './component/Logged';
 
 const PrivateRoute = ({ element }) => {
   // Add your authentication logic here
-  const isLoggedIn = localStorage.getItem('accessToken') !== null; // Placeholder for the actual authentication check
+  const isLoggedIn = localStorage.getItem('token') !== null; // Placeholder for the actual authentication check
 
   return isLoggedIn ? element : <Navigate to="/login" replace />;
 };
@@ -28,9 +28,14 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/login" element={<Logged />} />
             <Route
-              path="/contact"
-              element={<PrivateRoute element={<Contact />} />}
-            />
+              path="/"
+              element={<PrivateRoute/> } >
+
+          <Route path="/contact" element={<Contact/>}/>
+          
+        
+
+            </Route>
             <Route path="/logout" element={<Logout />} />
             <Route path="/register" element={<Register />} />
             <Route path="/prediction" element={<Prediction />} />

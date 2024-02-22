@@ -115,7 +115,7 @@ export default function Logged() {
                     </div>
                     <div className="w-full bg-gray-400 h-[2px]">
                       <img
-                        src="http://127.0.0.1:5500/line-removebg-preview.png"
+                        src="/line-removebg-preview.png"
                         alt=""
                         srcset=""
                         className=" h-[1rem] text-black"
@@ -142,7 +142,7 @@ export default function Logged() {
 
             <div class="h-96 w-96 mt-40 ">
               <img
-                src="http://127.0.0.1:5500/laptop.jpg"
+                src="/laptop.jpg"
                 alt="sdsd"
                 srcset=""
                 className="h-full w-full mr-[70px] border "
