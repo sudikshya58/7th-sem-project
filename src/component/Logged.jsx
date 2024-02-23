@@ -12,6 +12,8 @@ export default function Logged() {
     userpassword: "",
   });
   
+  const [errorMessage, setErrorMessage] = useState("");
+  
   const handleInput = (e) => {
     let name = e.target.name;
     let value = e.target.value;
@@ -20,6 +22,7 @@ export default function Logged() {
       [name]: value,
     });
   };
+  const navigate = useNavigate();
 
  const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,30 +35,36 @@ export default function Logged() {
       });
 
       if (response.data && response.data.access_token) {
-        const { access_token } = response.data;
+        // const { access_token } = response.data;
         
         // Show alert for successful login
         alert("Login successful");
 
-        // Log the token to the console
-        console.log("Token:", access_token);
+        // // Log the token to the console
+        // console.log("Token:", access_token);
 
-        // Store token in local storage
-        localStorage.setItem("token", access_token);
+        // // Store token in local storage
+        // localStorage.setItem("token", access_token);
 
         // Navigate to /contact page
         navigate("/contact");
       } else {
         // Show alert for login error
         alert("Invalid credentials");
+        setErrorMessage("Invalid credentials");
       }
     } catch (error) {
       console.error("Error:", error);
+      setErrorMessage("Error during login. Please try again.");
       // Handle other errors, if necessary
     }
   };
+
+  const handleContinue=()=>{
+    alert("hello")
+    navigate("/contact");
+  }
   console.log(user)
-  const navigate = useNavigate();
 
   return (
     <>
@@ -95,16 +104,19 @@ export default function Logged() {
                   </div>
                   <button
                     className="font-bold text-center text-[16px] rounded bg-[black] p-2 text-white  mt-6 w-full"
-                    type="submit"
+                    type="submit" onClick={handleContinue}
                   >
-                    <a href="/">
+                 
                       <i className="bx bxl-google"></i> Continue
-                    </a>
+                  
                   </button>
+                  {errorMessage && (
+                    <div className="text-red-500 mt-2">{errorMessage}</div>
+                  )}
                   <div class="flex gap-2  justify-between w-full items-center">
                     <div className="w-full bg-gray-400 h-[2px]">
                       <img
-                        src="http://127.0.0.1:5500/line-removebg-preview.png"
+                        src="/line-removebg-preview.png"
                         alt=""
                         srcset=""
                         className="  h-[1rem]  text-black"

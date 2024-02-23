@@ -1,18 +1,10 @@
 import React from "react";
-import { Route, Navigate, Outlet } from "react-router-dom";
-import { useAuth } from "./authenticate";
+import { Route, Navigate } from "react-router-dom";
 
-
-const PrivateRoute = () => {
- let loggedIn=false;
- if(loggedIn){
-    return <Outlet/>
- }
- else{
-    return <Navigate to="login"/>;
- }
-
- 
+const PrivateRoute = ({ element }) => {
+  // Add your authentication logic here
+  const isLoggedIn = localStorage.getItem('token') !== null; // Placeholder for the actual authentication check
+  return isLoggedIn ? element : <Navigate to="/login" />;
 };
 
 export default PrivateRoute;

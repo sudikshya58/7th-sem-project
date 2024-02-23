@@ -10,13 +10,9 @@ import { Contact } from './page/Contact';
 import Prediction from './page/Prediction';
 import Login from './page/Login';
 import Logged from './component/Logged';
+import PrivateRoute from './component/PrivateRoute';
 
-const PrivateRoute = ({ element }) => {
-  // Add your authentication logic here
-  const isLoggedIn = localStorage.getItem('token') !== null; // Placeholder for the actual authentication check
 
-  return isLoggedIn ? element : <Navigate to="/login" replace />;
-};
 
 function App() {
   return (
@@ -25,13 +21,16 @@ function App() {
         <AuthProvider>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/logins" element={<Login/>}/>
             <Route path="/login" element={<Logged />} />
+            {/* <PrivateRoute path="/contact" element={<Contact />} /> */}
+      
             <Route
               path="/"
               element={<PrivateRoute/> } >
 
-          <Route path="/contact" element={<Contact/>}/>
+          <Route path="/about" element={<About/>}/>
           
         
 
