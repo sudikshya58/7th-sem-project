@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Navbar from '../component/Navbar';
-import { useNavigate } from 'react-router-dom';
+
+
 
 export default function Prediction() {
   const getEmail=localStorage.getItem("useremail")
@@ -45,7 +45,7 @@ export default function Prediction() {
   }
   return (
     <>
-      <Navbar />
+      
       {getEmail&&getPassword?(  <div>
         <form onSubmit={handleSubmit}>
         <div className='flex flex-wrap gap-10  mx-40 my-40'>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import Navbar from "../component/Navbar";
+
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import axios from 'axios';
 import { Inputs } from "../component/Inputs";
@@ -75,7 +75,7 @@ export default function Register() {
     console.log(alldata)
   return (
     <>
-    <Navbar/>
+
     <div className="flex  flex-col justify-center items-center h-[100vh]"> 
     {successfulMessage && (<h1>{successfulMessage}</h1>)}
 

@@ -1,16 +1,16 @@
 import React from 'react'
-import Navbar from '../component/Navbar'
 import { Link } from 'react-router-dom'
+import Headers from '../component/Header'
 
 
 export default function Home() {
   return (
 <>
 <div>
-
+<Headers/>
   <div className='flex '>
     <div className='basis-50 w-[50%] '>
-    <Navbar/>
+   
     <div className='flex justify-center items-center flex-col translate-y-44'>
  
       <h1 className='text-6xl font-extrabold'>Loan Prediction </h1>

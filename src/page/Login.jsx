@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -18,7 +18,7 @@ const Login = () => {
       useremail: "",
       userpassword: "",
     });
-   
+    const [alldata, setAllData] = useState([]);
     const[successmessage,setSuccessMessage]=useState("");
     const [errMsg,setErrMsg]=useState("");
     // const[buttonDisbaled,setsubmitButtonDisabled]=useState(true);
@@ -38,33 +38,49 @@ const Login = () => {
           setErrMsg("Fill all Fields");
           return;
         }
+    
         const response = await axios.post("http://127.0.0.1:5000/logintoken", user, {
           headers: {
             "Content-Type": "application/json",
           },
         });
     
-        // Assuming your server responds with a success message and an access token
-        const { success, accessToken } = response.data;
+        console.log(response);
+        console.log(response.data.access_token);
+        console.log(localStorage.getItem('accessToken'));
+       
+    if(response.data && response.data.access_token){
+      alert("access token");
+      localStorage.setItem("auth-token",response.data.access_token);
+    }
+        if (response.status === 201) {
+          const responseData = response.data;
+          console.log(responseData);
+          setAllData([...alldata, responseData]);
+          setSuccessMessage(responseData.message);
     
-        if (success) {
-          localStorage.setItem('accessToken', accessToken);
-          setUser({ useremail: "", userpassword: "" }); // Reset input fields
-          setSuccessMessage("Login Successful"); // Set success message
-          setTimeout(() => {
-            setSuccessMessage("");
-          }, 3000); // Clear success message after 3 seconds
-          navigate("/dashboard");
+          // Check if access_token is present in responseData
+        
+    
+          navigate('/');
         } else {
-          setErrMsg("Authentication failed");
+          console.error('error', response.statusText);
+          setErrMsg(response.data.message);
+          setSuccessMessage("");
+        }
+      } catch (error) {
+        if (error.response && error.response.status === 401) {
+          setErrMsg("Authentication failed: Wrong email or password");
+          setSuccessMessage("");
           setTimeout(() => {
             setErrMsg("");
           }, 1000);
+        } else {
+          console.log("error", error);
         }
-      } catch (error) {
-        console.log("error", error);
       }
     };
+    
     console.log(user)
 
     
