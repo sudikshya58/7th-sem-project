@@ -34,6 +34,10 @@ const Login = () => {
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
+        if (!user.useremail || !user.userpassword) {
+          setErrMsg("Fill all Fields");
+          return;
+        }
         const response = await axios.post("http://127.0.0.1:5000/logintoken", user, {
           headers: {
             "Content-Type": "application/json",
@@ -55,7 +59,7 @@ const Login = () => {
           setErrMsg("Authentication failed");
           setTimeout(() => {
             setErrMsg("");
-          }, 3000);
+          }, 1000);
         }
       } catch (error) {
         console.log("error", error);
