@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import "../../src/index.css";
+import "./form.css";
 import { Link } from "react-router-dom";
 import { MdError } from "react-icons/md";
 import axios from "axios";
 
-function Predictions() {
+function Form() {
   const [isDisable, setIsDisable] = useState(false);
   const [alertmsg, setAlertMsg] = useState("");
 
@@ -422,4 +422,4 @@ function Predictions() {
   );
 }
 
-export default Predictions;
+export default Form;

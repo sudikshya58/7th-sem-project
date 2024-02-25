@@ -12,6 +12,10 @@ export const MenuListArray2 = [
         to: '/contact',
     },
     {   
+        title: 'prediction',	
+        to: '/predictions',
+    },
+    {   
         title: 'login',	
         to: '/logins',
     },
