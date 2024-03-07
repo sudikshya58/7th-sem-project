@@ -73,8 +73,8 @@ function Predictions() {
   }
 
   function iconInvalid3() {
-    if (data.loanAmountTerm > 480 || data.loanAmountTerm < 1)
-      return "The loan amount term should be between 1 to 480 months";
+    if (data.loanAmountTerm > 12 || data.loanAmountTerm < 1)
+      return "The loan amount term should be between 1 to 12 months";
     else {
       return "";
     }
@@ -101,63 +101,40 @@ function Predictions() {
 
   // This function handles the submission of a form by sending data to a server API endpoint
   function handleSubmit(event) {
-    // let headersList = {
-    //   "Accept": "*/*",
-    //   // "User-Agent": "Thunder Client (https://www.thunderclient.com)",
-    //   "Content-Type": "application/json"
-    //  }
-     
-    //  let bodyContent = JSON.stringify({
-    //    "data": data
-    //  });
-     
-    //  let response = fetch("http://127.0.0.1:5000/api/send-data", { 
-    //    method: "POST",
-    //    body: bodyContent,
-    //    headers: headersList
-    //  });
-     
-    //  let data =  response.text();
-    //  console.log(data);
-     
-    // Prevent the form from submitting normally
     event.preventDefault();
-    console.log(data);
-    console.log(JSON.stringify({"data" : data}))
+  
     // Send a POST request to the server API with the data in the body
     let headersList = {
       "Accept": "*/*",
-      "Access-Control-Allow-Origin":"*",
-      // "User-Agent": "Thunder Client (https://www.thunderclient.com)",
-      "Content-Type": "application/json" 
-     }
-     
-     let bodyContent = JSON.stringify({
-       "data": data
-     });
-     
-     let reqOptions = {
-       url: "/api/send-data",
-       method: "POST",
-       headers: headersList,
-       data: bodyContent,
-     }
- 
-     
-     axios.request(reqOptions)
-  .then((response) => {
-    // Assuming the response.data contains the response from the API
-    const apiResponse = response.data;
-    console.log(apiResponse); // Log the API response here
-    setAlertMsg(apiResponse["Remarks"]);
-    openModal(); // Open the modal after setting the alert message
-  })
-  .catch((error) => {
-    console.error(error);
-    setAlertMsg("Error occurred while processing the request.");
-  });
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+    };
   
+    let bodyContent = JSON.stringify({
+      "data": data
+    });
+  
+    let reqOptions = {
+      url: "http://127.0.0.1:5000/api/send-data",
+      method: "POST",
+      headers: headersList,
+      data: bodyContent,
+    };
+  
+    axios.request(reqOptions)
+      .then((response) => {
+        // Assuming the response.data contains the response from the API
+        const apiResponse = response.data;
+        console.log(apiResponse);
+        setAlertMsg(apiResponse["Remarks"]);
+        openModal();
+      })
+      .catch((error) => {
+        console.error(error);
+        setAlertMsg("Error occurred while processing the request.");
+      });
   }
+  
   const isInvalid =
     iconInvalid() ||
     iconInvalid2() ||
@@ -181,8 +158,9 @@ function Predictions() {
 
   return (
     <>
-      <h1>Fill up the form to check your loan eligibility</h1>
-      <form onSubmit={handleSubmit}>
+      <div className=" container mx-auto p-4">
+      <h1 className="text-3xl font-bold mb-4">Fill up the form to check your loan eligibility</h1>
+      <form onSubmit={handleSubmit} className="max-w-md   mx-auto">
         <label>
           <h3> Name</h3>
           <input
@@ -396,28 +374,46 @@ function Predictions() {
         </label>
         <br />
 
-        {isDisable && (
-          <div id="style-one">
-            <div id="style-two">
-              <h3>{alertmsg}</h3>
-              <h2>See Information about banks?</h2>
-              <p>
-                Visit our <Link to="/Blog">Blog</Link> content to know more!
-              </p>
-              <button onClick={closeModal}>Close</button>
-            </div>
-          </div>
-        )}
+        <div className="mt-4">
+            {isDisable && (
+              <div id="style-one">
+                <div id="style-two" className="bg-white p-4 rounded-md shadow-md">
+                  <h3>{alertmsg}</h3>
+                  <h2 className="text-lg font-semibold">
+                    See Information about banks?
+                  </h2>
+                  <p>
+                    Visit our <Link to="/Blog">Blog</Link> content to know more!
+                  </p>
+                  <button
+                    onClick={closeModal}
+                    className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            )}
 
-        <button
-          class="disable"
-          onClick={openModal}
-          type="submit"
-          disabled={!isFormValid}
-        >
-          Submit
-        </button>
+            <button
+              className={`${
+                isFormValid
+                  ? "bg-green-500 hover:bg-green-700"
+                  : "bg-gray-300 cursor-not-allowed"
+              } text-white px-4 py-2 rounded-md mt-4`}
+              onClick={openModal}
+              type="submit"
+              disabled={!isFormValid}
+            >
+              Submit
+            </button>
+          </div>
       </form>
+
+      <div>
+      
+      </div>
+      </div>
     </>
   );
 }
