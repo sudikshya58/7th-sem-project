@@ -149,7 +149,9 @@ export default function Register() {
   )}
 </div>
     </div>
-    <button className="w-60 border border-r-2 mt-6 bg-blue-400 p-3 rounded text-white" type="submit">Register</button>
+    <div className=" w-full  flex items-cenetr justify-center">
+    <button className="w-60 border border-r-2 mt-6 bg-blue-400 p-3 rounded text-center  text-white" type="submit">Register</button>
+    </div>
 
 </form>
 

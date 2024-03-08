@@ -17,6 +17,7 @@ import Logged from "./component/Logged";
 import PrivateRoute from "./component/PrivateRoute";
 import Headers from "./component/Header";
 import Predictions from "./page/Prediction";
+import { Interest } from "./page/Interest";
 function App() {
   return (
     <div className="App">
@@ -28,6 +29,7 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/logins" element={<Login />} />
             <Route path="/predictions" element={<Predictions/>}/>
+            <Route path="/interest" element={<Interest/>}/>
             <Route path="/login" element={<Logged />} />
             {/* <PrivateRoute path="/contact" element={<Contact />} /> */}
             <Route path="/" element={<PrivateRoute />}>

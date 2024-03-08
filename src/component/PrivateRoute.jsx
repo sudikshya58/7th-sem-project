@@ -3,7 +3,7 @@ import { Route, Navigate } from "react-router-dom";
 
 const PrivateRoute = ({ element }) => {
   // Add your authentication logic here
-  const isLoggedIn = localStorage.getItem('token') !== null; // Placeholder for the actual authentication check
+  const isLoggedIn = localStorage.getItem('auth-token') !== null; // Placeholder for the actual authentication check
   return isLoggedIn ? element : <Navigate to="/logins" />;
 };
 

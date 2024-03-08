@@ -159,8 +159,8 @@ function Predictions() {
   return (
     <>
       <div className=" container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-4">Fill up the form to check your loan eligibility</h1>
-      <form onSubmit={handleSubmit} className="max-w-md   mx-auto">
+      <h1 className="text-3xl font-bold mt-20 text-center  mb-4">Fill up the form to check your loan eligibility</h1>
+      <form onSubmit={handleSubmit} className="flex flex-wrap gap-20  mx-auto">
         <label>
           <h3> Name</h3>
           <input
@@ -171,122 +171,63 @@ function Predictions() {
             onChange={handleChange}
           />
         </label>
-        <br />
+    
         <label>
-          <h3>Gender</h3>
-          <select name="Gender" onChange={handleChange0}>
-            <option default value="">
-              Select
-            </option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-          </select>
-        </label>
-        <br />
-        <div>
-          <h3>Marital Status</h3>
-          <label>
-            <input
-              type="radio"
-              name="married"
-              value="Yes"
-              checked={selectedOption1 === "Yes"}
-              onChange={handleChange1}
-            />
-            &nbsp; Yes
-          </label>
-          <br />
-          <label>
-            <input
-              type="radio"
-              name="married"
-              value="No"
-              checked={selectedOption1 === "No"}
-              onChange={handleChange1}
-            />
-            &nbsp; No
-          </label>
-        </div>
-        <br />
-        <h3>Dependents</h3>
-        <label>
+          <h3>Applicant Income </h3>
           <input
-            type="radio"
-            name="dependents"
-            value="0"
-            checked={selectedOption2 === "0"}
-            onChange={handleChange1}
+            type="number"
+            name="applicantIncome"
+            placeholder="Applicant Income "
+            onChange={handleChange}
+            required
           />
-          &nbsp;0
+          {iconInvalid4() && <MdError color="red" size={20} />}
+          <span>{iconInvalid4()}</span>
         </label>
-        <br />
+   
         <label>
+          <h3>Loan Amount </h3>
           <input
-            type="radio"
-            name="dependents"
-            value="1"
-            checked={selectedOption2 === "1"}
-            onChange={handleChange1}
+            type="number"
+            name="loanAmount"
+            value={data.loanAmount}
+            placeholder="Loan Amount "
+            onChange={handleChange}
+            required
           />
-          &nbsp; 1
+          {iconInvalid2() && <MdError color="red" size={20} />}
+          <span>{iconInvalid2()}</span>
         </label>
-        <br />
+     
         <label>
+          <h3>Loan Amount Term (month/s) </h3>
           <input
-            type="radio"
-            name="dependents"
-            value="2"
-            checked={selectedOption2 === "2"}
-            onChange={handleChange1}
+            type="number"
+            name="loanAmountTerm"
+            value={data.loanAmountTerm}
+            placeholder="Loan Amount Term "
+            onChange={handleChange}
+            required
+            min="1"
+            max="480"
           />
-          &nbsp; 2
+          {iconInvalid3() && <MdError color="red" size={20} />}
+          <span>{iconInvalid3()}</span>
         </label>
-        <br />
+     
         <label>
+          <h3>Total Family Income </h3>
           <input
-            type="radio"
-            name="dependents"
-            value="3 or 3+"
-            checked={selectedOption2 === "3 or 3+"}
-            onChange={handleChange1}
+            type="number"
+            name="totalIncome"
+            placeholder="Total Income "
+            onChange={handleChange}
+            required
           />
-          &nbsp; 3 or 3+
+          {iconInvalid5() && <MdError color="red" size={20} />}
+          <span>{iconInvalid5()}</span>
         </label>
-        <br />
-        <label>
-          <h3>Education</h3>
-          <select name="education" onChange={handleChange0}>
-            <option default value="">
-              Select
-            </option>
-            <option value="Graduate">Graduate</option>
-            <option value="Not Graduate">Not Graduate</option>
-          </select>
-        </label>
-        <br />
-        <h3>Self Employed</h3>
-        <label>
-          <input
-            type="radio"
-            name="selfEmployed"
-            value="Yes"
-            checked={selectedOption3 === "Yes"}
-            onChange={handleChange1}
-          />
-          &nbsp; Yes
-        </label>
-        <br />
-        <label>
-          <input
-            type="radio"
-            name="selfEmployed"
-            value="No"
-            checked={selectedOption3 === "No"}
-            onChange={handleChange1}
-          />
-          &nbsp; No
-        </label>
-        <br />
+     
         <label>
           <h3>Credit History</h3>
           <input
@@ -304,7 +245,123 @@ function Predictions() {
             </div>
           )}
         </label>
-        <br />
+      
+        <label>
+          <h3>Gender</h3>
+          <select name="Gender" onChange={handleChange0}>
+            <option default value="">
+              Select
+            </option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+        </label>
+     
+        <div>
+          <h3>Marital Status</h3>
+          <label>
+            <input
+              type="radio"
+              name="married"
+              value="Yes"
+              checked={selectedOption1 === "Yes"}
+              onChange={handleChange1}
+            />
+            &nbsp; Yes
+          </label>
+        
+          <label>
+            <input
+              type="radio"
+              name="married"
+              value="No"
+              checked={selectedOption1 === "No"}
+              onChange={handleChange1}
+            />
+            &nbsp; No
+          </label>
+        </div>
+     
+        <h3>Dependents</h3>
+        <label>
+          <input
+            type="radio"
+            name="dependents"
+            value="0"
+            checked={selectedOption2 === "0"}
+            onChange={handleChange1}
+          />
+          &nbsp;0
+        </label>
+       
+        <label>
+          <input
+            type="radio"
+            name="dependents"
+            value="1"
+            checked={selectedOption2 === "1"}
+            onChange={handleChange1}
+          />
+          &nbsp; 1
+        </label>
+     
+        <label>
+          <input
+            type="radio"
+            name="dependents"
+            value="2"
+            checked={selectedOption2 === "2"}
+            onChange={handleChange1}
+          />
+          &nbsp; 2
+        </label>
+       
+        <label>
+          <input
+            type="radio"
+            name="dependents"
+            value="3 or 3+"
+            checked={selectedOption2 === "3 or 3+"}
+            onChange={handleChange1}
+          />
+          &nbsp; 3 or 3+
+        </label>
+      
+        <label>
+          <h3>Education</h3>
+          <select name="education" onChange={handleChange0}>
+            <option default value="">
+              Select
+            </option>
+            <option value="Graduate">Graduate</option>
+            <option value="Not Graduate">Not Graduate</option>
+          </select>
+        </label>
+     
+        <h3>Self Employed</h3>
+        <label>
+          <input
+            type="radio"
+            name="selfEmployed"
+            value="Yes"
+            checked={selectedOption3 === "Yes"}
+            onChange={handleChange1}
+          />
+          &nbsp; Yes
+        </label>
+      
+        <label>
+          <input
+            type="radio"
+            name="selfEmployed"
+            value="No"
+            checked={selectedOption3 === "No"}
+            onChange={handleChange1}
+          />
+          &nbsp; No
+        </label>
+     
+       
         <label>
           <h3>AreaProperty </h3>
           <select name="Area" onChange={handleChange0}>
@@ -316,63 +373,8 @@ function Predictions() {
             <option value="Rural">Rular</option>
           </select>
         </label>
-        <br />
-        <label>
-          <h3>Applicant Income </h3>
-          <input
-            type="number"
-            name="applicantIncome"
-            placeholder="Applicant Income "
-            onChange={handleChange}
-            required
-          />
-          {iconInvalid4() && <MdError color="red" size={20} />}
-          <span>{iconInvalid4()}</span>
-        </label>
-        <br />
-        <label>
-          <h3>Loan Amount </h3>
-          <input
-            type="number"
-            name="loanAmount"
-            value={data.loanAmount}
-            placeholder="Loan Amount "
-            onChange={handleChange}
-            required
-          />
-          {iconInvalid2() && <MdError color="red" size={20} />}
-          <span>{iconInvalid2()}</span>
-        </label>
-        <br />
-        <label>
-          <h3>Loan Amount Term (month/s) </h3>
-          <input
-            type="number"
-            name="loanAmountTerm"
-            value={data.loanAmountTerm}
-            placeholder="Loan Amount Term "
-            onChange={handleChange}
-            required
-            min="1"
-            max="480"
-          />
-          {iconInvalid3() && <MdError color="red" size={20} />}
-          <span>{iconInvalid3()}</span>
-        </label>
-        <br />
-        <label>
-          <h3>Total Family Income </h3>
-          <input
-            type="number"
-            name="totalIncome"
-            placeholder="Total Income "
-            onChange={handleChange}
-            required
-          />
-          {iconInvalid5() && <MdError color="red" size={20} />}
-          <span>{iconInvalid5()}</span>
-        </label>
-        <br />
+      
+      
 
         <div className="mt-4">
             {isDisable && (
@@ -394,7 +396,7 @@ function Predictions() {
                 </div>
               </div>
             )}
-
+<div className="mt-40">
             <button
               className={`${
                 isFormValid
@@ -407,6 +409,7 @@ function Predictions() {
             >
               Submit
             </button>
+            </div>
           </div>
       </form>
 

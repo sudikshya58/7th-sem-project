@@ -51,7 +51,8 @@ const Login = () => {
        
     if(response.data && response.data.access_token){
       alert("access token");
-      localStorage.setItem("auth-token",response.data.access_token);
+      localStorage.setItem("auth-token",response.data.access_token);          
+      navigate("/");
     }
         if (response.status === 201) {
           const responseData = response.data;
@@ -62,8 +63,9 @@ const Login = () => {
           // Check if access_token is present in responseData
         
     
-          navigate('/');
-        } else {
+        } 
+  
+        else {
           console.error('error', response.statusText);
           setErrMsg(response.data.message);
           setSuccessMessage("");
@@ -87,9 +89,9 @@ const Login = () => {
   
     return (
       <div className="bg-white rounded-2xl shadow-2xl flex flex-col w-full md:w-1/3 items-center max-w-4xl transition duration-1000 ease-out">
-        <h2 className="p-3 text-3xl font-bold text-black">Quaba</h2>
+        <h2 className="p-3 text-3xl font-bold text-black">meroLoan</h2>
         <div className="inline-block border-[1px] justify-center w-20 border-blue-400 border-solid"></div>
-        <h3 className="text-xl font-semibold text-blue-400 pt-2">Sign In!</h3>
+        <h3 className="text-xl font-semibold text-blue-400  text-center pt-2">Sign In!</h3>
         {errMsg && <h1 className="font-bold">{errMsg}</h1>}
         {successmessage && <h1 className="font-bold">{successmessage}</h1>}
 
@@ -124,7 +126,7 @@ const Login = () => {
         <div className="inline-block border-[1px] justify-center w-20 border-blue-400 border-solid"></div>
         <p className="text-blue-400 mt-4 text-sm">Don't have an account?</p>
         <p
-          className="text-blue-400 mb-4 text-sm font-medium cursor-pointer"
+          className="text-blue-400 mb-4 text-sm  font-medium cursor-pointer"
           onClick={() => setIsLogin(false)}
         >
           Create a New Account?
@@ -179,9 +181,9 @@ const Login = () => {
 
     return (
       <div className="bg-blue-400 text-white rounded-2xl shadow-2xl  flex flex-col w-full  md:w-1/3 items-center max-w-4xl transition duration-1000 ease-in">
-        <h2 className="p-3 text-3xl font-bold text-white">Quaba</h2>
+        <h2 className="p-3 text-3xl font-bold text-white">Mero Loan</h2>
         <div className="inline-block border-[1px] justify-center w-20 border-white border-solid"></div>
-        <h3 className="text-xl font-semibold text-white pt-2">
+        <h3 className="text-xl font-semibold text-white text-center pt-2">
           Create Account!
         </h3>
 
@@ -249,9 +251,9 @@ const Login = () => {
     <div className="bg-gray-100 flex flex-col items-center justify-center min-h-screen md:py-2">
       <main className="flex items-center w-full px-2 md:px-20">
         <div className="hidden md:inline-flex flex-col flex-1 space-y-1">
-          <p className="text-6xl text-blue-500 font-bold">Quaba</p>
+          <p className="text-6xl text-blue-500 font-bold">Mero Loan</p>
           <p className="font-medium text-lg leading-1 text-pink-400">
-            Explore your interests, meet new friends & expand your horions
+          Empower dreams, predict loans. Your financial journey starts here
           </p>
         </div>
         {isLogin ? <LoginForm /> : <SignUpForm />}

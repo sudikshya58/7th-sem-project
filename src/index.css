@@ -24,7 +24,7 @@ code {
 }
 
 form {
-    width: 500px;
+    width: 1300px;
     margin: 10px auto;
     padding: 20px;
     border: 1px solid #ccc;
@@ -52,6 +52,16 @@ label select {
 
 
 input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    box-shadow: 0 1px 2px #888;
+    margin-top: 5px;
+
+}
+input[type="password"] {
     width: 100%;
     padding: 12px;
     border: 1px solid #ccc;

@@ -47,7 +47,7 @@ const Headers = () => {
   return (
     <header className="header_in clearfix">
   <div
-          className={`fixed top-0 left-0 px-20 w-full  h-[4.5rem]  flex justify-between   items-center z-[30] ${isScrolled ?"bg-white  z-[30] shadow-lg  ":"text-white"
+          className={`fixed top-0 left-0 px-20 w-full  h-[4.5rem]  flex justify-between   items-center z-[30] ${isScrolled ?"bg-white  z-[30] shadow-lg  ":"text-black-300 font-bold"
             } `}>
         <div id="logo">
           <Link to="/">

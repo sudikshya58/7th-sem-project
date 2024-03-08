@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./form.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MdError } from "react-icons/md";
 import axios from "axios";
 
 function Form() {
   const [isDisable, setIsDisable] = useState(false);
   const [alertmsg, setAlertMsg] = useState("");
+  const navigate=useNavigate();
 
   function openModal() {
     setIsDisable(true);
@@ -18,6 +19,8 @@ function Form() {
 
   //all the initial state are set to null
   const [data, setData] = useState("");
+    // State to track authentication status
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   //this is for Number Field
   function handleChange(event) {
@@ -98,6 +101,10 @@ function Form() {
       return "";
     }
   }
+  useEffect(() => {
+    const accessToken = localStorage.getItem("auth_token");
+    setIsAuthenticated(!!accessToken);
+  }, []);
 
   // This function handles the submission of a form by sending data to a server API endpoint
   function handleSubmit(event) {
@@ -122,6 +129,11 @@ function Form() {
      
     // Prevent the form from submitting normally
     event.preventDefault();
+    if (!isAuthenticated) {
+      // If not authenticated, navigate to the login page
+      navigate("/login")
+      return;
+    }
     console.log(data);
     console.log(JSON.stringify({"data" : data}))
     // Send a POST request to the server API with the data in the body
@@ -413,7 +425,7 @@ function Form() {
           class="disable"
           onClick={openModal}
           type="submit"
-          disabled={!isFormValid}
+          disabled={!isFormValid && !isAuthenticated}
         >
           Submit
         </button>
