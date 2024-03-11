@@ -3,20 +3,20 @@ export const MenuListArray2 = [
         title: 'Home',	
         to: '/',
     },
+    // {   
+    //     title: 'About',	
+    //     to: '/about',
+    // },
+    // {   
+    //     title: 'Contact',	
+    //     to: '/contact',
+    // },
     {   
-        title: 'About',	
-        to: '/about',
-    },
-    {   
-        title: 'Contact',	
-        to: '/contact',
-    },
-    {   
-        title: 'prediction',	
+        title: 'Prediction',	
         to: '/predictions',
     },
     {   
-        title: 'login',	
+        title: 'Login',	
         to: '/logins',
     },
  

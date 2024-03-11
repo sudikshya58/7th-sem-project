@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../src/index.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MdError } from "react-icons/md";
 import axios from "axios";
 
 function Predictions() {
+  const navigate=useNavigate();
   const [isDisable, setIsDisable] = useState(false);
   const [alertmsg, setAlertMsg] = useState("");
 
@@ -18,6 +19,7 @@ function Predictions() {
 
   //all the initial state are set to null
   const [data, setData] = useState("");
+  // const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   //this is for Number Field
   function handleChange(event) {
@@ -98,41 +100,48 @@ function Predictions() {
       return "";
     }
   }
-
+  // useEffect(() => {
+  //   const accessToken = localStorage.getItem("auth_token");
+  //   setIsAuthenticated(!!accessToken);
+  // }, []);
   // This function handles the submission of a form by sending data to a server API endpoint
   function handleSubmit(event) {
     event.preventDefault();
-  
-    // Send a POST request to the server API with the data in the body
-    let headersList = {
-      "Accept": "*/*",
-      "Access-Control-Allow-Origin": "*",
-      "Content-Type": "application/json",
-    };
-  
-    let bodyContent = JSON.stringify({
-      "data": data
-    });
-  
-    let reqOptions = {
-      url: "http://127.0.0.1:5000/api/send-data",
-      method: "POST",
-      headers: headersList,
-      data: bodyContent,
-    };
-  
-    axios.request(reqOptions)
-      .then((response) => {
-        // Assuming the response.data contains the response from the API
-        const apiResponse = response.data;
-        console.log(apiResponse);
-        setAlertMsg(apiResponse["Remarks"]);
-        openModal();
-      })
-      .catch((error) => {
-        console.error(error);
-        setAlertMsg("Error occurred while processing the request.");
+    const isAuthenticated = !!localStorage.getItem("auth-token");
+    if (!isAuthenticated) {
+      // If not authenticated, navigate to the login page
+      navigate("/logins");
+    } else {
+      // If authenticated, proceed with form submission
+      let headersList = {
+        "Accept": "*/*",
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      };
+
+      let bodyContent = JSON.stringify({
+        "data": data
       });
+
+      let reqOptions = {
+        url: "http://127.0.0.1:5000/api/send-data",
+        method: "POST",
+        headers: headersList,
+        data: bodyContent,
+      };
+
+      axios.request(reqOptions)
+        .then((response) => {
+          const apiResponse = response.data;
+          console.log(apiResponse);
+          setAlertMsg(apiResponse["Remarks"]);
+          openModal();
+        })
+        .catch((error) => {
+          console.error(error);
+          setAlertMsg("Error occurred while processing the request.");
+        });
+    }
   }
   
   const isInvalid =
@@ -154,11 +163,12 @@ function Predictions() {
     data.loanAmount &&
     data.loanAmountTerm &&
     data.creditHistory &&
-    !isInvalid;
+    !isInvalid 
+    
 
   return (
     <>
-      <div className=" container mx-auto p-4">
+      <div className=" container overflow-x-hidden mx-auto p-4">
       <h1 className="text-3xl font-bold mt-20 text-center  mb-4">Fill up the form to check your loan eligibility</h1>
       <form onSubmit={handleSubmit} className="flex flex-wrap gap-20  mx-auto">
         <label>

@@ -425,9 +425,10 @@ function Form() {
           class="disable"
           onClick={openModal}
           type="submit"
+          className="bg-blue-800 h"
           disabled={!isFormValid && !isAuthenticated}
         >
-          Submit
+          Submi
         </button>
       </form>
     </>

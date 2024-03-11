@@ -3,7 +3,9 @@ import { useEffect, useState } from "react"
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import axios from 'axios';
 import { Inputs } from "../component/Inputs";
+import { useNavigate } from "react-router-dom";
 export default function Register() {
+  const navigate=useNavigate();
 
     const initialForm={
         username:"",
@@ -25,10 +27,30 @@ export default function Register() {
     };
   
     console.log(form)
-   
+    const validateInputs = () => {
+      if (form.userphone < 0) {
+        setSuccessfulMessage("Phone number cannot be negative");
+        return false;
+      } else if (form.userphone.length < 10) {
+        setSuccessfulMessage("Phone number should not be less than 10 digits");
+        return false;
+      }
+      if (form.userpassword !== form.confirmpassword) {
+        setSuccessfulMessage("Password and Confirm Password do not match");
+        return false;
+      } else if (form.userpassword.length < 6) {
+        setSuccessfulMessage("Password should be greater than or equal to 6 characters");
+        return false;
+      }
+      return true;
+    };
+    
  
     const submitForm = async (e) => {
       e.preventDefault();
+      if(!validateInputs()){
+        return;
+      };
   
       try {
         const response = await axios.post('http://127.0.0.1:5000/registers', form, {
@@ -47,6 +69,7 @@ export default function Register() {
           console.log(responseData);
      
           setSuccessfulMessage(responseData.message);
+          navigate('/logins')
           // Redirect to the home page upon successful login
           // navigate('/home');// Replace '/home' with the desired route
         } else {
@@ -88,6 +111,7 @@ export default function Register() {
          
             value={form.username}
             type={"text"}
+            
             onchange=""
             placeH="Full Name"
             onChange={(e) =>
@@ -99,7 +123,7 @@ export default function Register() {
             basis={100}
             name="useremail"
            value={form.useremail}
-            type= {"text" }
+            type= {"email" }
             onchange=""
             placeH="user email "
             onChange={(e) =>
