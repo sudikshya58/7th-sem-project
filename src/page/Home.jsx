@@ -6,8 +6,9 @@ import Headers from '../component/Header'
 export default function Home() {
   return (
 <>
-<div>
 <Headers/>
+<div>
+
   <div className='flex '>
     <div className='basis-50 w-[50%] '>
    

@@ -22,7 +22,7 @@ function App() {
   return (
     <div className="App">
       <Router>
-      <Headers/>
+      {/* <Headers/> */}
         <AuthProvider>
           <Routes>
             <Route path="/" element={<Home />} />

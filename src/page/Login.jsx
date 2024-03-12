@@ -75,7 +75,8 @@ const Login = () => {
     };
 
     return (
-      <div className="bg-white rounded-2xl shadow-2xl flex flex-col w-full md:w-1/3 items-center max-w-4xl transition duration-1000 ease-out">
+      <div className="bg-white text-black   shadow-2xl flex flex-col w-full h-full  justify-center  items-center max-w-4xl transition duration-1000 ease-out">
+                <div className="border  border-dotted border-indigo-600 rounded p-20 admin-header  overflow-y-hidden ">
         <h2 className="p-3 text-3xl font-bold text-black">meroLoan</h2>
         <div className="inline-block border-[1px] justify-center w-20 border-blue-400 border-solid"></div>
         <h3 className="text-xl font-semibold text-blue-400  text-center pt-2">
@@ -117,22 +118,29 @@ const Login = () => {
         >
           Create a New Account?
         </p>
+        </div>
       </div>
     );
   };
 
   return (
-    <div className="bg-gray-100 flex flex-col items-center justify-center min-h-screen md:py-2">
-      <main className="flex items-center w-full px-2 md:px-20">
-        <div className="hidden md:inline-flex flex-col flex-1 space-y-1">
-          <p className="text-6xl text-blue-500 font-bold">Mero Loan</p>
-          <p className="font-medium text-lg leading-1 text-pink-400">
-            Empower dreams, predict loans. Your financial journey starts here
-          </p>
-        </div>
-        <LoginForm />
-      </main>
-    </div>
+    <div className="bg-gray-100 h-[100vh]   ">
+    <main className="flex  flex-row h-full">
+ 
+      <div className="hidden md:block w-full basis-[50%] h-full ">
+        <img
+          src="https://images.unsplash.com/photo-1633158829585-23ba8f7c8caf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt="login"
+          className="h-full w-full object-cover"
+        />
+      </div>
+     
+      <div className="basis:[100%] md:basis-[50%] h-full overflow-y-hidden overflow-x-hidden  ">
+      {<LoginForm /> }
+      </div>
+    
+    </main>
+  </div>
   );
 };
 

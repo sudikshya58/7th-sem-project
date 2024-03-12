@@ -3,19 +3,29 @@ import "../../src/index.css";
 import { Link, useNavigate } from "react-router-dom";
 import { MdError } from "react-icons/md";
 import axios from "axios";
+import Headers from "../component/Header";
 
 function Predictions() {
+  const label=" block mb-2 text-sm font-medium text-gray-900 "
+  const divs="w-full md:w-1/3 px-3 mb-6 md:mb-10 "
+  const inputs="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
   const navigate=useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDisable, setIsDisable] = useState(false);
   const [alertmsg, setAlertMsg] = useState("");
-
   function openModal() {
-    setIsDisable(true);
+    setIsModalOpen(true);
   }
-
   function closeModal() {
-    setIsDisable(false);
+    setIsModalOpen(false);
   }
+  // function openModal() {
+  //   setIsDisable(true);
+  // }
+
+  // function closeModal() {
+  //   setIsDisable(false);
+  // }
 
   //all the initial state are set to null
   const [data, setData] = useState("");
@@ -168,23 +178,40 @@ function Predictions() {
 
   return (
     <>
-      <div className=" container overflow-x-hidden mx-auto p-4">
+    <Headers/>
+      <div className=" container overflow-x-hidden mx-auto  p-4">
       <h1 className="text-3xl font-bold mt-20 text-center  mb-4">Fill up the form to check your loan eligibility</h1>
-      <form onSubmit={handleSubmit} className="flex flex-wrap gap-20  mx-auto">
-        <label>
-          <h3> Name</h3>
+      <div className="">
+      {isModalOpen && (
+          <div className="modal-overlay">
+            <div className="modal">
+              <span className="close" onClick={closeModal}>
+                &times;
+              </span>
+              <p>{alertmsg}</p>
+            </div>
+          </div>
+        )}
+        </div>
+      <form onSubmit={handleSubmit} className="w-[80rem] border  shadow-2xl justify-center p-20  mx-auto">
+      
+      <div className="flex flex-wrap -mx-3 mb-6">
+        <label className={`${divs}`}>
+          <h3 className={`${label}`}> Name</h3>
           <input
             type="text"
             title="Please enter your full name"
             name="name"
+            className={`${inputs}`}
             placeholder="Full Name"
             onChange={handleChange}
           />
         </label>
     
-        <label>
-          <h3>Applicant Income </h3>
+        <label className={`${divs}`}>
+          <h3 className={`${label}`}>Applicant Income </h3>
           <input
+             className={`${inputs}`}
             type="number"
             name="applicantIncome"
             placeholder="Applicant Income "
@@ -195,9 +222,10 @@ function Predictions() {
           <span>{iconInvalid4()}</span>
         </label>
    
-        <label>
-          <h3>Loan Amount </h3>
+        <label className={`${divs}`}>
+          <h3 className={`${label}`}>Loan Amount </h3>
           <input
+             className={`${inputs}`}
             type="number"
             name="loanAmount"
             value={data.loanAmount}
@@ -209,9 +237,11 @@ function Predictions() {
           <span>{iconInvalid2()}</span>
         </label>
      
-        <label>
-          <h3>Loan Amount Term (month/s) </h3>
+        <label className={`${divs}`}>
+        
+          <h3 className={`${label}`}>Loan Amount Term (month/s) </h3>
           <input
+             className={`${inputs}`}
             type="number"
             name="loanAmountTerm"
             value={data.loanAmountTerm}
@@ -225,9 +255,10 @@ function Predictions() {
           <span>{iconInvalid3()}</span>
         </label>
      
-        <label>
-          <h3>Total Family Income </h3>
+        <label className={`${divs}`}>
+          <h3 className={`${label}`}>Total Family Income </h3>
           <input
+             className={`${inputs}`}
             type="number"
             name="totalIncome"
             placeholder="Total Income "
@@ -238,9 +269,10 @@ function Predictions() {
           <span>{iconInvalid5()}</span>
         </label>
      
-        <label>
-          <h3>Credit History</h3>
+        <label className={`${divs}`}>
+          <h3 className={`${label}`}>Credit History</h3>
           <input
+             className={`${inputs}`}
             type="number"
             name="creditHistory"
             placeholder="Credit History"
@@ -256,8 +288,8 @@ function Predictions() {
           )}
         </label>
       
-        <label>
-          <h3>Gender</h3>
+        <label className={`${divs}`}>
+          <h3 className={`${label}`}>Gender</h3>
           <select name="Gender" onChange={handleChange0}>
             <option default value="">
               Select
@@ -267,9 +299,9 @@ function Predictions() {
           </select>
         </label>
      
-        <div>
-          <h3>Marital Status</h3>
-          <label>
+        <div className={`${divs}`}>
+          <h3 className={`${label}`}>Marital Status</h3>
+          <label className="mb-[0.125rem] inline-block min-h-[1.5rem]">
             <input
               type="radio"
               name="married"
@@ -280,7 +312,7 @@ function Predictions() {
             &nbsp; Yes
           </label>
         
-          <label>
+          <label className="mb-[0.125rem] inline-block min-h-[1.5rem] ps-[1.5rem]">
             <input
               type="radio"
               name="married"
@@ -292,8 +324,9 @@ function Predictions() {
           </label>
         </div>
      
-        <h3>Dependents</h3>
-        <label>
+     <div className={`${divs}`}>
+        <h3 className={`${label}`}>Dependents</h3>
+        <label className="mb-[0.125rem] inline-block min-h-[1.5rem] ">
           <input
             type="radio"
             name="dependents"
@@ -304,7 +337,7 @@ function Predictions() {
           &nbsp;0
         </label>
        
-        <label>
+        <label className="mb-[0.125rem] inline-block min-h-[1.5rem] ps-[1.5rem]">
           <input
             type="radio"
             name="dependents"
@@ -315,7 +348,7 @@ function Predictions() {
           &nbsp; 1
         </label>
      
-        <label>
+        <label className="mb-[0.125rem] inline-block min-h-[1.5rem] ps-[1.5rem]">
           <input
             type="radio"
             name="dependents"
@@ -326,7 +359,7 @@ function Predictions() {
           &nbsp; 2
         </label>
        
-        <label>
+        <label className="mb-[0.125rem] inline-block min-h-[1.5rem] ps-[1.5rem]">
           <input
             type="radio"
             name="dependents"
@@ -336,9 +369,10 @@ function Predictions() {
           />
           &nbsp; 3 or 3+
         </label>
+        </div>
       
-        <label>
-          <h3>Education</h3>
+        <label className={`${divs}`}>
+          <h3 className={`${label}`}>Education</h3>
           <select name="education" onChange={handleChange0}>
             <option default value="">
               Select
@@ -348,8 +382,9 @@ function Predictions() {
           </select>
         </label>
      
-        <h3>Self Employed</h3>
-        <label>
+     <div className={`${divs}`}>
+        <h3 className={`${label}`}>Self Employed</h3>
+        <label className="mb-[0.125rem] inline-block min-h-[1.5rem] ">
           <input
             type="radio"
             name="selfEmployed"
@@ -360,7 +395,7 @@ function Predictions() {
           &nbsp; Yes
         </label>
       
-        <label>
+        <label className="mb-[0.125rem] inline-block min-h-[1.5rem] ps-[1.5rem]">
           <input
             type="radio"
             name="selfEmployed"
@@ -370,10 +405,11 @@ function Predictions() {
           />
           &nbsp; No
         </label>
+        </div>
      
        
-        <label>
-          <h3>AreaProperty </h3>
+        <label className={`${divs}`}>
+          <h3 className={`${label}`}>AreaProperty </h3>
           <select name="Area" onChange={handleChange0}>
             <option default value="">
               Select
@@ -383,11 +419,13 @@ function Predictions() {
             <option value="Rural">Rular</option>
           </select>
         </label>
+        </div>
       
       
 
         <div className="mt-4">
-            {isDisable && (
+        
+            {/* {isDisable && (
               <div id="style-one">
                 <div id="style-two" className="bg-white p-4 rounded-md shadow-md">
                   <h3>{alertmsg}</h3>
@@ -405,13 +443,13 @@ function Predictions() {
                   </button>
                 </div>
               </div>
-            )}
-<div className="mt-40">
+            )} */}
+<div className="flex justify-center items-center ">
             <button
               className={`${
                 isFormValid
-                  ? "bg-green-500 hover:bg-green-700"
-                  : "bg-gray-300 cursor-not-allowed"
+                  ? "text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                  : "text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 cursor-not-allowed"
               } text-white px-4 py-2 rounded-md mt-4`}
               onClick={openModal}
               type="submit"
@@ -422,6 +460,7 @@ function Predictions() {
             </div>
           </div>
       </form>
+  
 
       <div>
       
