@@ -5,6 +5,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { MenuListArray2 } from '.';
 
 const Headers = () => {
+  const isAuthenticate=localStorage.getItem('auth-token')
+  const userEmail=localStorage.getItem('email');
     const navigate=useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
   const handleScroll = () => {
@@ -39,6 +41,8 @@ const Headers = () => {
   const handleLogout = () => {
     // Remove the access token from local storage
     localStorage.removeItem('auth-token');
+    localStorage.removeItem("email");
+    // localStorage.removeItem('accessToken')
 
     // Navigate to the login page
     navigate('/logins');
@@ -62,7 +66,10 @@ const Headers = () => {
             </li>
               
           ))}
-          <li onClick={handleLogout}>logout</li>
+         
+          {isAuthenticate ?   <li onClick={handleLogout}>logout</li> :null}
+        {isAuthenticate ? <li>welcome {userEmail}</li>:null}
+        
         </ul>
       
       </div>

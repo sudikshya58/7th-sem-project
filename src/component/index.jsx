@@ -1,7 +1,7 @@
 export const MenuListArray2 = [
     {   
         title: 'Home',	
-        to: '/',
+        to: '/Home',
     },
     // {   
     //     title: 'About',	
@@ -15,11 +15,7 @@ export const MenuListArray2 = [
         title: 'Prediction',	
         to: '/predictions',
     },
-    {   
-        title: 'Login',	
-        to: '/logins',
-    },
- 
+  
 ]
 export const banks=
      [

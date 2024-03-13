@@ -18,6 +18,7 @@ import PrivateRoute from "./component/PrivateRoute";
 import Headers from "./component/Header";
 import Predictions from "./page/Prediction";
 import { Interest } from "./page/Interest";
+import { Pages } from "./page/Pages";
 function App() {
   return (
     <div className="App">
@@ -25,7 +26,8 @@ function App() {
       {/* <Headers/> */}
         <AuthProvider>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Pages />} />
+            <Route path="/Home" element={<Home/>}/>
             <Route path="/contact" element={<Contact />} />
             <Route path="/logins" element={<Login />} />
             <Route path="/predictions" element={<Predictions/>}/>

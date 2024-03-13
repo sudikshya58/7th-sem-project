@@ -49,7 +49,9 @@ const Login = () => {
         if (response.data && response.data.access_token) {
        
           localStorage.setItem("auth-token", response.data.access_token);
-          navigate("/");
+          localStorage.setItem("email", user.useremail);
+        
+          navigate("/Home");
         }
         if (response.status === 201) {
           const responseData = response.data;
