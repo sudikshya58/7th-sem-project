@@ -77,19 +77,19 @@ const Login = () => {
     };
 
     return (
-      <div className="bg-white text-black   shadow-2xl flex flex-col w-full h-full  justify-center  items-center max-w-4xl transition duration-1000 ease-out">
-                <div className="border  border-dotted border-indigo-600 rounded p-20 admin-header  overflow-y-hidden ">
-        <h2 className="p-3 text-3xl font-bold text-black">meroLoan</h2>
-        <div className="inline-block border-[1px] justify-center w-20 border-blue-400 border-solid"></div>
-        <h3 className="text-xl font-semibold text-blue-400  text-center pt-2">
+      <div className="bg-white text-black admin-header   flex flex-col w-full h-full  justify-center  items-center max-w-4xl transition duration-1000 ease-out">
+      <div className="border  border-dotted rounded p-20   w-full overflow-y-hidden ">
+        {/* <h2 className="p-3 text-3xl font-bold text-center text-black">meroLoan</h2> */}
+        {/* <div className="inline-block border-[1px] justify-center items-center  w-full border-blue-400 border-solid"></div> */}
+        {/* <h3 className="text-xl font-semibold text-blue-400  text-center pt-2">
           Sign In!
-        </h3>
+        </h3> */}
         {errMsg && <h1 className="font-bold">{errMsg}</h1>}
         {successmessage && <h1 className="font-bold">{successmessage}</h1>}
 
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col gap-10 items-center justify-center">
           <input
-            className="border-none font-sans text-[15px] p-3  w-full border-r-[6px] border-gray-300 "
+            className="  w-full xl:w-[70%] rounded  border-black  border-2   bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
             autoComplete="off"
             name="useremail"
             type="email"
@@ -97,7 +97,7 @@ const Login = () => {
             onChange={handleInput}
           />
           <input
-            className="border-none font-sans text-[15px] p-3  w-full border-r-[6px]  border-gray-300"
+            className="  w-full xl:w-[70%] rounded  border-black  border-2  bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
             autoComplete="off"
             name="userpassword"
             type="password"
@@ -106,16 +106,16 @@ const Login = () => {
           />
 
           <button
-            className="rounded m-2 hover:text-white bg-blue-400 w-4/5 px-4 py-2 shadow-md   hover:bg-black  transition duration-200 ease-in"
+            className="w-[70%] cursor-pointer  rounded-lg font-bold border border-primary bg-primary p-4 text-white  transition hover:bg-opacity-90"
             onClick={handleSubmit}
           >
             Sign In
           </button>
         </div>
-        <div className="inline-block border-[1px] justify-center w-20 border-blue-400 border-solid"></div>
-        <p className="text-blue-400 mt-4 text-sm">Don't have an account?</p>
+        {/* <div className="inline-block border-[1px] justify-center h border-blue-400 border-solid"></div> */}
+        <p className="text-blue-400 mt-4 text-center text-sm">Don't have an account?</p>
         <p
-          className="text-blue-400 mb-4 text-sm  font-medium cursor-pointer"
+          className="text-blue-400 mb-4 text-sm text-center  font-medium cursor-pointer"
           onClick={() => navigate('/register')}
         >
           Create a New Account?
@@ -126,22 +126,30 @@ const Login = () => {
   };
 
   return (
-    <div className="bg-gray-100 h-[100vh]   ">
-    <main className="flex  flex-row h-full">
- 
+    <div className="rounded-sm border border-stroke bg-white shadow-default">
+        <div className="flex flex-wrap h-[100vh] items-center ">
+
       <div className="hidden md:block w-full basis-[50%] h-full ">
+      <div className="h-full">
         <img
           src="https://images.unsplash.com/photo-1633158829585-23ba8f7c8caf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="login"
           className="h-full w-full object-cover"
         />
+               </div>
       </div>
      
-      <div className="basis:[100%] md:basis-[50%] h-full overflow-y-hidden overflow-x-hidden  ">
-      {<LoginForm /> }
-      </div>
+      <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
+            <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
+              <h2 className="mb-9 xl:text-3xl text-xl font-bold text-black dark:text-white text-center sm:text-title-xl2">
+                SIGN IN  TO CREDENCE
+              </h2>
+              {<LoginForm /> }
+            </div>
+          </div>
     
-    </main>
+    
+    </div>
   </div>
   );
 };

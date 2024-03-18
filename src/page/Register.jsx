@@ -99,12 +99,30 @@ export default function Register() {
   return (
     <>
 
-    <div className="flex  flex-col justify-center items-center h-[100vh]"> 
+   
+
+<div className="rounded-sm overflow-y-hidden overflow-x-hidden  bg-white shadow-default">
+        <div className="flex  flex-wrap h-[100vh]  ">
+
+      <div className="hidden md:block w-full  basis-[50%] h-[100vh] ">
+      <div className="h-full  ">
+        <img
+          src="https://images.unsplash.com/photo-1633158829585-23ba8f7c8caf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt="login"
+          className="h-full w-full object-cover"
+        />
+               </div>
+      </div>
+     
+      <div className="w-full  dark:border-strokedark xl:w-1/2 ">
+            <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
+            
+              <div className="flex  flex-col justify-center items-center h-[100vh]"> 
     {successfulMessage && (<h1>{successfulMessage}</h1>)}
 
     <div><h1 className="font-extrabold text-[28px] mb-6">Register Your Account</h1></div>
     <form  className="  " onSubmit={submitForm}>
-    <div className="flex flex-col   items-center  bg-[rgb(226,226,236)]  p-10 justify-center gap-4">
+    <div className="flex flex-col   items-center   p-10 justify-center gap-4">
     <Inputs
           
             basis={100}
@@ -174,7 +192,7 @@ export default function Register() {
 </div>
     </div>
     <div className=" w-full  flex items-cenetr justify-center">
-    <button className="w-60 border border-r-2 mt-6 bg-blue-400 p-3 rounded text-center  text-white" type="submit">Register</button>
+    <button className="w-[60%] cursor-pointer rounded-lg font-bold border border-primary  p-4 text-white bg-black transition hover:bg-opacity-90" type="submit">Register</button>
     </div>
 
 </form>
@@ -182,6 +200,12 @@ export default function Register() {
 
 
 </div>
+            </div>
+          </div>
+    
+    
+    </div>
+  </div>
 </>
   )
 }
