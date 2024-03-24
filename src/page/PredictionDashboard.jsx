@@ -40,7 +40,7 @@ const iconClass = "text-xl";
     return (
         <>
         <Dashboard_Layout/>
-        <div className="py-4 px-6 mt-20 ml-60">
+        <div className="py-4 px-6 mt-20 ml-60 z-10">
             <h2 className="text-xl font-bold mb-4">Prediction Data</h2>
             <div className="overflow-x-auto border  border-gray-100">
             <table className="w-full table-auto border-collapse">

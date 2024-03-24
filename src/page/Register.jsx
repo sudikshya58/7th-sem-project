@@ -114,7 +114,7 @@ export default function Register() {
                </div>
       </div>
      
-      <div className="w-full  dark:border-strokedark xl:w-1/2 ">
+      <div className="w-full   xl:w-1/2 ">
             <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
             
               <div className="flex  flex-col justify-center items-center h-[100vh]"> 
@@ -192,7 +192,7 @@ export default function Register() {
 </div>
     </div>
     <div className=" w-full  flex items-cenetr justify-center">
-    <button className="w-[60%] cursor-pointer rounded-lg font-bold border border-primary  p-4 text-white bg-black transition hover:bg-opacity-90" type="submit">Register</button>
+    <button className="w-[60%] cursor-pointer rounded-lg font-bold border  border-primary  p-4 text-white bg-black transition hover:bg-opacity-90" type="submit">Register</button>
     </div>
 
 </form>

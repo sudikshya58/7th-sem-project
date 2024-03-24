@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
+import { FaUser } from "react-icons/fa";
 
 import { MenuListArray2 } from '.';
 
@@ -51,11 +51,11 @@ const Headers = () => {
   return (
     <header className="header_in clearfix">
   <div
-          className={`fixed top-0 left-0 px-20 w-full  h-[4.5rem]  flex justify-between   items-center z-[30] ${isScrolled ?"bg-white text-blue-800 font-bold  z-[30] shadow-lg  ":"text-black-300 font-bold"
+          className={`fixed top-0 left-0 px-20 w-full  h-[4.5rem]  flex justify-between   items-center z-[30] bg-white text-black  font-bold   shadow-lg  text-black-300 font-bold"
             } `}>
         <div id="logo">
           <Link to="/">
-            <img src=""alt="logo" width="140" height="35"  />
+            <img src="https://www.facebook.com/messenger_media?attachment_id=961687778934875&message_id=mid.%24cAAAAAN1EKKuUkUlQOGOYAQC4pY9Z&thread_id=100008588228545" alt="logo" width="140" height="35"  className='' />
           </Link>
         </div>
         {/* Rest of the header content */}
@@ -67,8 +67,8 @@ const Headers = () => {
               
           ))}
          
-          {isAuthenticate ?   <li onClick={handleLogout}>logout</li> :null}
-        {isAuthenticate ? <li>welcome {userEmail}</li>:null}
+          {isAuthenticate ?   <li onClick={handleLogout}>Logout</li> :null}
+        {isAuthenticate ? <li className='flex justify-center gap-3 items-center'> <FaUser/>  {userEmail}</li>:null}
         
         </ul>
       

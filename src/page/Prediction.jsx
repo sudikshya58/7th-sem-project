@@ -11,8 +11,8 @@ function Predictions() {
   const inputs="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
   const navigate=useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isDisable, setIsDisable] = useState(false);
   const [alertmsg, setAlertMsg] = useState("");
+  const [isLoading,setIsLoading]=useState(false);
   function openModal() {
     setIsModalOpen(true);
   }
@@ -122,38 +122,53 @@ function Predictions() {
       // If not authenticated, navigate to the login page
       navigate("/logins");
     } else {
+      setIsLoading(true);
       // If authenticated, proceed with form submission
       let headersList = {
         "Accept": "*/*",
         "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
       };
-
+  
       let bodyContent = JSON.stringify({
         "data": data
       });
-
+  
       let reqOptions = {
         url: "http://127.0.0.1:5000/api/send-data",
         method: "POST",
         headers: headersList,
         data: bodyContent,
       };
-
+  
       axios.request(reqOptions)
         .then((response) => {
+          setIsLoading(false);
           const apiResponse = response.data;
           console.log(apiResponse);
+          const { loanAmountTerm, loanAmount } = data;
+          console.log(data);
           setAlertMsg(apiResponse["Remarks"]);
           openModal();
+          if (apiResponse["Remarks"] === 'Loan is acceptable!') {
+            setTimeout(() => {
+              closeModal();
+              // Navigate to the interest page with loan amount and amount term as parameters
+              navigate(`/interest/:data?loanAmount=${loanAmount}&loanAmountTerm=${loanAmountTerm}`);
+            }, 4000); // 4000 milliseconds = 4 seconds
+          } else {
+            navigate("/notaccept"); // Corrected typo and replaced "/other page" with "/other-page"
+          }
         })
         .catch((error) => {
+          setIsLoading(false);
           console.error(error);
           setAlertMsg("Error occurred while processing the request.");
         });
     }
   }
   
+
   const isInvalid =
     iconInvalid() ||
     iconInvalid2() ||
@@ -450,12 +465,12 @@ function Predictions() {
                 isFormValid
                   ? "text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
                   : "text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 cursor-not-allowed"
-              } text-white px-4 py-2 rounded-md mt-4`}
+              } text-white px-4 py-2 w-56 rounded-md mt-4`}
               onClick={openModal}
               type="submit"
               disabled={!isFormValid}
             >
-              Submit
+              {isLoading ? "SIGNING............":"SIGN IN"}
             </button>
             </div>
           </div>

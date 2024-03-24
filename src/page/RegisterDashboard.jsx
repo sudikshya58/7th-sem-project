@@ -34,7 +34,8 @@ export const RegisterDashboard = () => {
         try {
             const userToEdit = registeredData.find(user => user.id === id);
             if (userToEdit) {
-                navigate(`/editregister/${id}`, { state: { editData: userToEdit } }); // Pass the user data as state
+                // Pass the user data as state while navigating
+                navigate(`/editregister/${id}`, { state: userToEdit }); 
             } else {
                 console.log("User not found for id:", id);
                 // Handle the case where user with the specified id is not found
@@ -44,6 +45,7 @@ export const RegisterDashboard = () => {
             // Handle navigation error if necessary
         }
     };
+    
     
     const handleDelete = async (id) => {
         try {

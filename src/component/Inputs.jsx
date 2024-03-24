@@ -3,7 +3,7 @@ import React from "react";
 export 
 const Inputs = ({ label, type, placeH, basis = 100,options, ...props }) => (
 
-    <div className={`basis-full w-full  rounded  border-black   border-2  bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary lg:basis-[${basis}%]`}>
+    <div className={`basis-full w-full  rounded  border-black   border-2  bg-transparent py-2 pl-6 pr-10 text-black outline-none   dark:text-white  lg:basis-[${basis}%]`}>
       {type === 'checkbox' ? (
         <div className="flex  items-center">
           <input
@@ -21,7 +21,7 @@ const Inputs = ({ label, type, placeH, basis = 100,options, ...props }) => (
               {...props}
               required
               // Use the provided onChange event here
-              className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium form-control active:border-primary"
+              className="w-full rounded  bg-transparent py-3 px-5 font-medium form-control outline-none  active:border-primary"
             >
               <option value="">{placeH}</option>
               {options.map((option, index) => (
@@ -38,7 +38,7 @@ const Inputs = ({ label, type, placeH, basis = 100,options, ...props }) => (
               placeholder={placeH}
               value={props.value}
   onChange={props.onChange}
-              className="border-none font-sans  w-96 text-[15px] p-3   border-r-[6px] border-red-600"
+              className="border-none font-sans  w-96 text-[15px] p-3  outline-none   border-red-600"
             />
           )}
         </>

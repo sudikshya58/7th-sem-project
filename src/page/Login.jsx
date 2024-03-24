@@ -14,6 +14,7 @@ const Login = () => {
     const [alldata, setAllData] = useState([]);
     const [successmessage, setSuccessMessage] = useState("");
     const [errMsg, setErrMsg] = useState("");
+    const [isLoading,setIsLoading]=useState(false);
 
     const handleInput = (e) => {
       let name = e.target.name;
@@ -26,9 +27,11 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
       e.preventDefault();
+      setIsLoading(true);
       try {
         if (!user.useremail || !user.userpassword) {
           setErrMsg("Fill all Fields");
+          setIsLoading(false);
           return;
         }
 
@@ -73,6 +76,10 @@ const Login = () => {
         } else {
           console.log("error", error);
         }
+       
+      }
+      finally{
+          setIsLoading(false);
       }
     };
 
@@ -108,8 +115,9 @@ const Login = () => {
           <button
             className="w-[70%] cursor-pointer  rounded-lg font-bold border border-primary bg-primary p-4 text-white  transition hover:bg-opacity-90"
             onClick={handleSubmit}
+            disabled={isLoading}
           >
-            Sign In
+            {isLoading ? "siginin.....":"sign in"}
           </button>
         </div>
         {/* <div className="inline-block border-[1px] justify-center h border-blue-400 border-solid"></div> */}

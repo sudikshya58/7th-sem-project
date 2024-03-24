@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const AdminLogin = () => {
@@ -8,21 +8,7 @@ const AdminLogin = () => {
         userpassword: "",
     });
     const [errmsg, setErrMsg] = useState(null);
-    const [admindata, setAdminData] = useState({});
-    
-    useEffect(() => {
-        const getData = async () => {
-            try {
-                const res = await fetch('http://127.0.0.1:5000/admin_users');
-                const getdatas = await res.json();
-                setAdminData(getdatas);
-                console.log(getdatas);
-            } catch (error) {
-                console.error("Error fetching admin data:", error);
-            }
-        };
-        getData();
-    }, []);
+    const [successmsg, setSuccessMsg] = useState(null);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -32,28 +18,40 @@ const AdminLogin = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!formData.useremail || !formData.userpassword) {
-            setErrMsg("Fill all fields");
-            return;
-        }
-        const match = admindata[0].useremail === formData.useremail && admindata[0].userpassword === formData.userpassword;
-        console.log(match);
-        if (match) {
-            localStorage.setItem("adminToken", admindata.id);
-            navigate("/dashboard");
-        } else {
-            setErrMsg("Invalid credentials");
+        try {
+            const response = await fetch('http://127.0.0.1:5000/admin_login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+            const data = await response.json();
+            console.log(data);
+            if (response.ok) {
+                console.log("Login successful. Redirecting...");
+                localStorage.setItem("admin_token", data.admin_token);
+                setSuccessMsg("Login successful. Redirecting...");
+                navigate(-1); 
+            } else {
+                setErrMsg(data.error);
+            }
+        } catch (error) {
+            console.error("Error logging in:", error);
+            setErrMsg("Error logging in. Please try again later.");
         }
     };
+    
 
     return (
         <div className="flex justify-center items-center h-[100vh]">
             <div className="w-full max-w-xs">
-                {errmsg && <h1 className="font-bold">{errmsg}</h1>}
+                {errmsg && <h1 className="font-bold text-red-500">{errmsg}</h1>}
+                {successmsg && <h1 className="font-bold text-green-500">{successmsg}</h1>}
                 <h1 className="text-center font-bold mb-4">
-                    Admin Dashbaord
+                    Admin Dashboard
                 </h1>
 
                 <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
