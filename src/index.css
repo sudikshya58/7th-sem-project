@@ -205,5 +205,23 @@ button[type="submit"]:hover {
 }
 
 #style-two button:hover {
-    background-color: #2c2a2a;
+    background-color: #ca4141;
 }
+.image-container {
+    position: relative;
+  }
+  
+  .image-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(238, 231, 231, 0.5); /* Adjust opacity as needed */
+  }
+  
+  .image-container img {
+    position: relative;
+  }
+  

@@ -159,6 +159,21 @@ function Predictions() {
           } else {
             navigate("/notaccept"); // Corrected typo and replaced "/other page" with "/other-page"
           }
+          // Clear form fields after submission
+          setData({
+            name: "",
+            Gender: "",
+            married: "",
+            dependents: "",
+            education: "",
+            selfEmployed: "",
+            Area: "",
+            applicantIncome: "",
+            totalIncome: "",
+            loanAmount: "",
+            loanAmountTerm: "",
+            creditHistory: ""
+          });
         })
         .catch((error) => {
           setIsLoading(false);
@@ -167,6 +182,7 @@ function Predictions() {
         });
     }
   }
+  
   
 
   const isInvalid =
@@ -208,7 +224,7 @@ function Predictions() {
           </div>
         )}
         </div>
-      <form onSubmit={handleSubmit} className="w-[80rem] border  shadow-2xl justify-center p-20  mx-auto">
+      <form onSubmit={handleSubmit} className="w-[80rem] border  shadow-xl justify-center p-20  mx-auto">
       
       <div className="flex flex-wrap -mx-3 mb-6">
         <label className={`${divs}`}>

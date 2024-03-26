@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import axios from 'axios';
@@ -86,11 +86,18 @@ export default function Register() {
         }
       }
     };
-    const [showPassword,setShowPassword]=useState("");
-  
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    
     const togglePassword = () => {
         setShowPassword((prevShowPassword) => !prevShowPassword);
-      };
+    };
+    
+    const toggleConfirmPassword = () => {
+        setShowConfirmPassword((prevShowConfirmPassword) => !prevShowConfirmPassword);
+    };
+  
+   
   
   
     
@@ -180,14 +187,14 @@ export default function Register() {
     basis={100}
     name="confirmpassword"
     value={form.confirmpasswordpassword}
-    type={showPassword ? "text" : "password"}
+    type={showConfirmPassword ? "text" : "password"}
     placeH="confirm password"
     onChange={(e) => setForm({ ...form, confirmpassword: e.target.value })}
   />
-  {showPassword ? (
-    <IoEyeOutline className="h-6 w-6 absolute top-1/2 transform -translate-y-1/2 right-4 cursor-pointer" onClick={togglePassword} />
+  {showConfirmPassword ? (
+    <IoEyeOutline className="h-6 w-6 absolute top-1/2 transform -translate-y-1/2 right-4 cursor-pointer" onClick={toggleConfirmPassword} />
   ) : (
-    <IoEyeOffOutline className="h-6 w-6 absolute top-1/2 transform -translate-y-1/2 right-4 cursor-pointer" onClick={togglePassword} />
+    <IoEyeOffOutline className="h-6 w-6 absolute top-1/2 transform -translate-y-1/2 right-4 cursor-pointer" onClick={toggleConfirmPassword} />
   )}
 </div>
     </div>

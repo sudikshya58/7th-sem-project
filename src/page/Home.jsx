@@ -8,6 +8,7 @@ import { Footer } from '../component/Footer'
 import { FaClock } from "react-icons/fa";
 
 
+
 export default function Home() {
   return (
 <>
@@ -31,7 +32,7 @@ export default function Home() {
   </div>
   <div className='h-40 flex mt-1 '>
     <img src="https://themewagon.github.io/loan/assets/img/hero/hero_footer.png" alt=''/>
-    <div className='bg-[#5a83cf] w-full'>
+    <div className='bg-[#67aae6] w-full'>
       <div className='flex mx-10 items-center justify-between h-full '>
         <div className='flex gap-4 items-center'>
         <FaClock color='white' size={16} />
@@ -51,9 +52,8 @@ export default function Home() {
   </div>
 
   <div className='mr-[8rem] ml-[8rem] '>
-
-  <Myloan/>
   <About/>
+  <Myloan/>
   <Teams/>
 
 

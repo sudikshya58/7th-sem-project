@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -15,6 +15,8 @@ const Login = () => {
     const [successmessage, setSuccessMessage] = useState("");
     const [errMsg, setErrMsg] = useState("");
     const [isLoading,setIsLoading]=useState(false);
+
+    console.log('i am here')
 
     const handleInput = (e) => {
       let name = e.target.name;
@@ -54,7 +56,7 @@ const Login = () => {
           localStorage.setItem("auth-token", response.data.access_token);
           localStorage.setItem("email", user.useremail);
         
-          navigate("/Home");
+          navigate("/home");
         }
         if (response.status === 201) {
           const responseData = response.data;
@@ -82,6 +84,14 @@ const Login = () => {
           setIsLoading(false);
       }
     };
+
+    const token = localStorage.getItem("auth-token")  || ""
+    console.log(token)
+
+  if(token){
+    return <Navigate to={"/Home"} />
+  }
+
 
     return (
       <div className="bg-white text-black admin-header   flex flex-col w-full h-full  justify-center  items-center max-w-4xl transition duration-1000 ease-out">

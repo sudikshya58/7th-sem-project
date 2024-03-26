@@ -14,7 +14,7 @@ export const About = () => {
 <p className='leading-7 text-[#666666] text-[17px] mb-[15px]'>At [Your Website Name], we specialize in loan prediction services, helping users determine their eligibility for loans based on key factors like income, marital status, and gender. Our platform also enables users to calculate interest rates using bank rates and predicted data stored securely in our database..</p>
 <p className='leading-7 text-[#666666] text-[17px] mb-[15px]'>Our mission is to empower users to make informed financial decisions, guiding them towards a more secure future. Join us on this journey towards financial empowerment at [Your Website Name].</p>
 <div>
-     <Link to="/about"> <button className='text-white bg-gradient-to-l from-purple-600 via-blue-600 to-purple-500 text-[15px] font-bold  p-6 w-[12rem]'>ABOUT US</button></Link>
+     <Link to="/about"> <button className='text-white bg-blue-300 to-purple-500 text-[15px] font-bold  p-6 w-[12rem]'>ABOUT US</button></Link>
      </div>
      </div>
     

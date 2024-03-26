@@ -1,18 +1,17 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export const Pages = () => {
-    const isAuthenticate = localStorage.getItem('auth_token');
+    const isAuthenticate = localStorage.getItem('auth-token');
     const navigate = useNavigate();
 
-    useEffect(() => {
+        useEffect(() => {
         if (isAuthenticate) {
             navigate('/Home');
         } else {
-            navigate('/logins');
+            navigate('/logins'); // Navigate to the login page if not authenticated
         }
     }, [isAuthenticate, navigate]);
 
-    // Return null or some loading indicator if you prefer
-    return null;
+    return null; // or some loading indicator if you prefer
 };

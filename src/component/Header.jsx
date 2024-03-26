@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaUser } from "react-icons/fa";
+import logo from "../Image/logo.png"
 
 import { MenuListArray2 } from '.';
 
@@ -55,7 +56,7 @@ const Headers = () => {
             } `}>
         <div id="logo">
           <Link to="/">
-            <img src="https://www.facebook.com/messenger_media?attachment_id=961687778934875&message_id=mid.%24cAAAAAN1EKKuUkUlQOGOYAQC4pY9Z&thread_id=100008588228545" alt="logo" width="140" height="35"  className='' />
+            <img src={logo} alt="logo"   className=' w-10 ' />
           </Link>
         </div>
         {/* Rest of the header content */}

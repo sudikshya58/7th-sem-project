@@ -19,7 +19,7 @@ const AdminLogin = () => {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        e.preventDefault(); // Prevent default form submission behavior
         try {
             const response = await fetch('http://127.0.0.1:5000/admin_login', {
                 method: 'POST',
@@ -31,10 +31,13 @@ const AdminLogin = () => {
             const data = await response.json();
             console.log(data);
             if (response.ok) {
-                console.log("Login successful. Redirecting...");
+                console.log("Login successful. Now You can access dashboard");
                 localStorage.setItem("admin_token", data.admin_token);
                 setSuccessMsg("Login successful. Redirecting...");
-                navigate(-1); 
+                // Add a delay before redirecting
+                setTimeout(() => {
+                    navigate("/dashboard");
+                }, 1000); // Redirect after 1 second (adjust as needed)
             } else {
                 setErrMsg(data.error);
             }
@@ -43,6 +46,7 @@ const AdminLogin = () => {
             setErrMsg("Error logging in. Please try again later.");
         }
     };
+    
     
 
     return (

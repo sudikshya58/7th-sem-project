@@ -1,3 +1,5 @@
+import prishni from "../Image/prishni.jpg";
+import sudiksha from "../Image/sudiksha.jpg";
 export const MenuListArray2 = [
     {   
         title: 'Home',	
@@ -86,19 +88,19 @@ export const banks=
     name:"sudikshya",
     facebook:"",
     instagram:"",
-    image:""
+    Image:sudiksha
   },
   {
     name:"smriti",
     facebook:"",
     instagram:"",
-    image:""
+    Image:""
   },
   {
     name:"prishni",
     facebook:"",
     instagram:"",
-    image:""
+    Image:prishni
   },
 ]
   
