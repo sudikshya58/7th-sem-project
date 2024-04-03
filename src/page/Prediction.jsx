@@ -1,221 +1,504 @@
-import React, { useEffect, useState } from 'react';
-import Navbar from '../component/Navbar';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import "../../src/index.css";
+import { Link, useNavigate } from "react-router-dom";
+import { MdError } from "react-icons/md";
+import axios from "axios";
+import Headers from "../component/Header";
 
-export default function Prediction() {
-  const getEmail=localStorage.getItem("useremail")
-      console.log(getEmail);
-      const getPassword=localStorage.getItem("userpassword")
-  // const navigate = useNavigate();
+function Predictions() {
+  const label=" block mb-2 text-sm font-medium text-gray-900 "
+  const divs="w-full md:w-1/3 px-3 mb-6 md:mb-10 "
+  const inputs="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+  const navigate=useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [alertmsg, setAlertMsg] = useState("");
+  const [isLoading,setIsLoading]=useState(false);
+  function openModal() {
+    setIsModalOpen(true);
+  }
+  function closeModal() {
+    setIsModalOpen(false);
+  }
+  // function openModal() {
+  //   setIsDisable(true);
+  // }
+
+  // function closeModal() {
+  //   setIsDisable(false);
+  // }
+
+  //all the initial state are set to null
+  const [data, setData] = useState("");
+  // const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  //this is for Number Field
+  function handleChange(event) {
+    const { name, value } = event.target;
+    setData((prevData) => ({ ...prevData, [name]: value }));
+  }
+
+  //this is for Dropdown
+  function handleChange0(event) {
+    const { name, value } = event.target;
+    setData((prevData) => ({ ...prevData, [name]: value }));
+  }
+  //used for radio button
+  const [selectedOption1, setSelectedOption1] = useState("");
+  const [selectedOption2, setSelectedOption2] = useState("");
+  const [selectedOption3, setSelectedOption3] = useState("");
+
+  //Radio Buttons
+  function handleChange1(event) {
+    const { name, value } = event.target;
+    switch (name) {
+      case "married":
+        setSelectedOption1(value);
+        break;
+      case "dependents":
+        setSelectedOption2(value);
+        break;
+      case "selfEmployed":
+        setSelectedOption3(value);
+        break;
+      default:
+        break;
+    }
+    setData((prevData) => ({ ...prevData, [name]: value }));
+  }
+
+  function iconInvalid() {
+    if (data.creditHistory > 9 || data.creditHistory < 0) {
+      return "The credit history should be between 0 to 9 .";
+    } else {
+      return "";
+    }
+  }
+
+  function iconInvalid2() {
+    if (data.loanAmount > 10000000)
+      return " The loan amount cannot be greater than 10 million ";
+    else if (data.loanAmount < 100) {
+      return "The loan amount cannot be less than 100";
+    } else {
+      return "";
+    }
+  }
+
+  function iconInvalid3() {
+    if (data.loanAmountTerm > 12 || data.loanAmountTerm < 1)
+      return "The loan amount term should be between 1 to 12 months";
+    else {
+      return "";
+    }
+  }
+  function iconInvalid4() {
+    if (data.applicantIncome < 100)
+      return "Applicant income cannot be less than 100";
+    else {
+      return "";
+    }
+  }
+
+  function iconInvalid5() {
+    if (data.totalIncome && data.applicantIncome) {
+      if (parseInt(data.totalIncome) < parseInt(data.applicantIncome)) {
+        return "Total family income should be more than Applicant Income";
+      } else {
+        return "";
+      }
+    } else {
+      return "";
+    }
+  }
   // useEffect(() => {
-  //   // Check if access token is present in localStorage
-  //   const accessToken = localStorage.getItem('jwt_access_token');
-
-  //   // If access token is not present, redirect to login page
-  //   if (!accessToken) {
-  //     navigate('/login');
-  //   }
+  //   const accessToken = localStorage.getItem("auth_token");
+  //   setIsAuthenticated(!!accessToken);
   // }, []);
-  const label = "mb-[1px] font-bold  text-[#141312]";
-  const input="w-72 p-2 border placeholder:text-black";
-  const [formData, setFormData] = useState({
-    name: '',
-    creditHistory: '',
-    applicantIncome: '',
-    loanAmount: '',
-    totalIncome: '',
-    loanAmountTerm: '',
-    education:'',
-    gender:'',
-    Area:'',
-    selfEmployed:'',
-    maritalStatus:'',
-    dependents:'',
-    
-    
-  });
-  const handleInputChange=(e)=>{
-    const {name,value}=e.target;
-    setFormData({...formData,[name]:value});
+  // This function handles the submission of a form by sending data to a server API endpoint
+  function handleSubmit(event) {
+    event.preventDefault();
+    const isAuthenticated = !!localStorage.getItem("auth-token");
+    if (!isAuthenticated) {
+      // If not authenticated, navigate to the login page
+      navigate("/logins");
+    } else {
+      setIsLoading(true);
+      // If authenticated, proceed with form submission
+      let headersList = {
+        "Accept": "*/*",
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      };
+  
+      let bodyContent = JSON.stringify({
+        "data": data
+      });
+  
+      let reqOptions = {
+        url: "http://127.0.0.1:5000/api/send-data",
+        method: "POST",
+        headers: headersList,
+        data: bodyContent,
+      };
+  
+      axios.request(reqOptions)
+        .then((response) => {
+          setIsLoading(false);
+          const apiResponse = response.data;
+          console.log(apiResponse);
+          const { loanAmountTerm, loanAmount } = data;
+          console.log(data);
+          setAlertMsg(apiResponse["Remarks"]);
+          openModal();
+          if (apiResponse["Remarks"] === 'Loan is acceptable!') {
+            setTimeout(() => {
+              closeModal();
+              // Navigate to the interest page with loan amount and amount term as parameters
+              navigate(`/interest/:data?loanAmount=${loanAmount}&loanAmountTerm=${loanAmountTerm}`);
+            }, 4000); // 4000 milliseconds = 4 seconds
+          } else {
+            navigate("/notaccept"); // Corrected typo and replaced "/other page" with "/other-page"
+          }
+          // Clear form fields after submission
+          setData({
+            name: "",
+            Gender: "",
+            married: "",
+            dependents: "",
+            education: "",
+            selfEmployed: "",
+            Area: "",
+            applicantIncome: "",
+            totalIncome: "",
+            loanAmount: "",
+            loanAmountTerm: "",
+            creditHistory: ""
+          });
+        })
+        .catch((error) => {
+          setIsLoading(false);
+          console.error(error);
+          setAlertMsg("Error occurred while processing the request.");
+        });
+    }
   }
-  const handleSubmit=(e)=>{
-    e.preventDefault();
-    console.log(formData)
+  
+  
 
-  }
+  const isInvalid =
+    iconInvalid() ||
+    iconInvalid2() ||
+    iconInvalid3() ||
+    iconInvalid4() ||
+    iconInvalid5();
+  const isFormValid =
+    data.name &&
+    data.Gender &&
+    selectedOption1 &&
+    selectedOption2 &&
+    data.education &&
+    selectedOption3 &&
+    data.Area &&
+    data.applicantIncome &&
+    data.totalIncome &&
+    data.loanAmount &&
+    data.loanAmountTerm &&
+    data.creditHistory &&
+    !isInvalid 
+    
+
   return (
     <>
-      <Navbar />
-      {getEmail&&getPassword?(  <div>
-        <form onSubmit={handleSubmit}>
-        <div className='flex flex-wrap gap-10  mx-40 my-40'>
-          <div className='flex flex-col' >
-            <label className={`${label}`} >full name </label><br />
-            <input type="name" placeholder='' name="name"   onChange={handleInputChange} className={`${input}`}/>
+    <Headers/>
+      <div className=" container overflow-x-hidden mx-auto  p-4">
+      <h1 className="text-3xl font-bold mt-20 text-center  mb-4">Fill up the form to check your loan eligibility</h1>
+      <div className="">
+      {isModalOpen && (
+          <div className="modal-overlay">
+            <div className="modal">
+              <span className="close" onClick={closeModal}>
+                &times;
+              </span>
+              <p>{alertmsg}</p>
+            </div>
           </div>
-          <div className='flex flex-col' >
-            <label className={`${label}`} >Credit History </label><br />
-            <input type="number" placeholder='Credit History' name="creditHistory"   onChange={handleInputChange} className={`${input}`}/>
-          </div>
-          <div className='flex flex-col' >
-            <label className={`${label}`} >Applicant Income </label><br />
-            <input type="number" placeholder='Applicant Income' name="applicantIncome"   onChange={handleInputChange} className={`${input}`}/>
-          </div>
-          <div className='flex flex-col' >
-            <label className={`${label}`} >Loan Amount </label><br />
-            <input type="name" placeholder='Loan Amount' name="loanAmount"   onChange={handleInputChange} className={`${input}`}/>
-          </div>
-          <div className='flex flex-col' >
-            <label className={`${label}`} >Total Family Income </label><br />
-            <input type="name" placeholder='Total Family Income' name="totalIncome"    onChange={handleInputChange} className={`${input}`}/>
-          </div>
-          <div className='flex flex-col' >
-            <label className={`${label}`} >Loan AmountTerm </label><br />
-            <input type="name" placeholder='Loan AmountTerm' name="loanAmountTerm"   onChange={handleInputChange}  className={`${input}`}/>
-          </div>
-          <div className='flex flex-col' >
-            <label className={`${label}`} >hhh </label><br />
-            <input type="name" placeholder=''    onChange={handleInputChange} className={`${input}`}/>
-          </div>
+        )}
+        </div>
+      <form onSubmit={handleSubmit} className="w-[80rem] border  shadow-xl justify-center p-20  mx-auto">
+      
+      <div className="flex flex-wrap -mx-3 mb-6">
+        <label className={`${divs}`}>
+          <h3 className={`${label}`}> Name</h3>
+          <input
+            type="text"
+            title="Please enter your full name"
+            name="name"
+            className={`${inputs}`}
+            placeholder="Full Name"
+            onChange={handleChange}
+          />
+        </label>
+    
+        <label className={`${divs}`}>
+          <h3 className={`${label}`}>Applicant Income </h3>
+          <input
+             className={`${inputs}`}
+            type="number"
+            name="applicantIncome"
+            placeholder="Applicant Income "
+            onChange={handleChange}
+            required
+          />
+          {iconInvalid4() && <MdError color="red" size={20} />}
+          <span>{iconInvalid4()}</span>
+        </label>
+   
+        <label className={`${divs}`}>
+          <h3 className={`${label}`}>Loan Amount </h3>
+          <input
+             className={`${inputs}`}
+            type="number"
+            name="loanAmount"
+            value={data.loanAmount}
+            placeholder="Loan Amount "
+            onChange={handleChange}
+            required
+          />
+          {iconInvalid2() && <MdError color="red" size={20} />}
+          <span>{iconInvalid2()}</span>
+        </label>
+     
+        <label className={`${divs}`}>
         
-          <div className='flex flex-col'>
-              <label className={`${label}`}>Gender</label><br />
-              <select
-                name="gender"
-                className={`${input}`}
-                value={formData.gender}
-                onChange={handleInputChange}
-              >
-                <option value="">Select Gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-              </select>
+          <h3 className={`${label}`}>Loan Amount Term (month/s) </h3>
+          <input
+             className={`${inputs}`}
+            type="number"
+            name="loanAmountTerm"
+            value={data.loanAmountTerm}
+            placeholder="Loan Amount Term "
+            onChange={handleChange}
+            required
+            min="1"
+            max="480"
+          />
+          {iconInvalid3() && <MdError color="red" size={20} />}
+          <span>{iconInvalid3()}</span>
+        </label>
+     
+        <label className={`${divs}`}>
+          <h3 className={`${label}`}>Total Family Income </h3>
+          <input
+             className={`${inputs}`}
+            type="number"
+            name="totalIncome"
+            placeholder="Total Income "
+            onChange={handleChange}
+            required
+          />
+          {iconInvalid5() && <MdError color="red" size={20} />}
+          <span>{iconInvalid5()}</span>
+        </label>
+     
+        <label className={`${divs}`}>
+          <h3 className={`${label}`}>Credit History</h3>
+          <input
+             className={`${inputs}`}
+            type="number"
+            name="creditHistory"
+            placeholder="Credit History"
+            onChange={handleChange}
+            required
+            min="0"
+          />
+          {iconInvalid() && (
+            <div>
+              <MdError color="red" size={20} />
+              <span>{iconInvalid()}</span>
             </div>
-            <div className='flex flex-col'>
-              <label className={`${label}`}>Education</label><br />
-              <select
-                name="education"
-                className={`${input}`}
-                value={formData.education}
-                onChange={handleInputChange}
-              >
-                <option value="">Select Education</option>
-                <option value="male">Graduate</option>
-                <option value="female">Not Graduate</option>
-              </select>
-            </div>
-            <div className='flex flex-col'>
-              <label className={`${label}`}>Property Area</label><br />
-              <select
-                name="Area"
-                className={`${input}`}
-                value={formData.Area}
-                onChange={handleInputChange}
-              >
-  <option default value="">
+          )}
+        </label>
+      
+        <label className={`${divs}`}>
+          <h3 className={`${label}`}>Gender</h3>
+          <select name="Gender" onChange={handleChange0}>
+            <option default value="">
+              Select
+            </option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+        </label>
+     
+        <div className={`${divs}`}>
+          <h3 className={`${label}`}>Marital Status</h3>
+          <label className="mb-[0.125rem] inline-block min-h-[1.5rem]">
+            <input
+              type="radio"
+              name="married"
+              value="Yes"
+              checked={selectedOption1 === "Yes"}
+              onChange={handleChange1}
+            />
+            &nbsp; Yes
+          </label>
+        
+          <label className="mb-[0.125rem] inline-block min-h-[1.5rem] ps-[1.5rem]">
+            <input
+              type="radio"
+              name="married"
+              value="No"
+              checked={selectedOption1 === "No"}
+              onChange={handleChange1}
+            />
+            &nbsp; No
+          </label>
+        </div>
+     
+     <div className={`${divs}`}>
+        <h3 className={`${label}`}>Dependents</h3>
+        <label className="mb-[0.125rem] inline-block min-h-[1.5rem] ">
+          <input
+            type="radio"
+            name="dependents"
+            value="0"
+            checked={selectedOption2 === "0"}
+            onChange={handleChange1}
+          />
+          &nbsp;0
+        </label>
+       
+        <label className="mb-[0.125rem] inline-block min-h-[1.5rem] ps-[1.5rem]">
+          <input
+            type="radio"
+            name="dependents"
+            value="1"
+            checked={selectedOption2 === "1"}
+            onChange={handleChange1}
+          />
+          &nbsp; 1
+        </label>
+     
+        <label className="mb-[0.125rem] inline-block min-h-[1.5rem] ps-[1.5rem]">
+          <input
+            type="radio"
+            name="dependents"
+            value="2"
+            checked={selectedOption2 === "2"}
+            onChange={handleChange1}
+          />
+          &nbsp; 2
+        </label>
+       
+        <label className="mb-[0.125rem] inline-block min-h-[1.5rem] ps-[1.5rem]">
+          <input
+            type="radio"
+            name="dependents"
+            value="3 or 3+"
+            checked={selectedOption2 === "3 or 3+"}
+            onChange={handleChange1}
+          />
+          &nbsp; 3 or 3+
+        </label>
+        </div>
+      
+        <label className={`${divs}`}>
+          <h3 className={`${label}`}>Education</h3>
+          <select name="education" onChange={handleChange0}>
+            <option default value="">
+              Select
+            </option>
+            <option value="Graduate">Graduate</option>
+            <option value="Not Graduate">Not Graduate</option>
+          </select>
+        </label>
+     
+     <div className={`${divs}`}>
+        <h3 className={`${label}`}>Self Employed</h3>
+        <label className="mb-[0.125rem] inline-block min-h-[1.5rem] ">
+          <input
+            type="radio"
+            name="selfEmployed"
+            value="Yes"
+            checked={selectedOption3 === "Yes"}
+            onChange={handleChange1}
+          />
+          &nbsp; Yes
+        </label>
+      
+        <label className="mb-[0.125rem] inline-block min-h-[1.5rem] ps-[1.5rem]">
+          <input
+            type="radio"
+            name="selfEmployed"
+            value="No"
+            checked={selectedOption3 === "No"}
+            onChange={handleChange1}
+          />
+          &nbsp; No
+        </label>
+        </div>
+     
+       
+        <label className={`${divs}`}>
+          <h3 className={`${label}`}>AreaProperty </h3>
+          <select name="Area" onChange={handleChange0}>
+            <option default value="">
               Select
             </option>
             <option value="Urban">Urban</option>
             <option value="semiUrban">Semi Urban</option>
             <option value="Rural">Rular</option>
-              </select>
-            </div>
-            <div className='flex flex-col'>
-              <label className={`${label}`}>Marital Status</label><br />
-              <div>
-                <input
-                  type="radio"
-                  name="maritalStatus"
-                  value="married"
-                  checked={formData.maritalStatus === 'married'}
-                  onChange={handleInputChange}
-                />
-                <label htmlFor="married">Married</label>
-              </div>
-              <div>
-                <input
-                  type="radio"
-                  name="maritalStatus"
-                  value="unmarried"
-                  checked={formData.maritalStatus === 'unmarried'}
-                  onChange={handleInputChange}
-                />
-                <label htmlFor="unmarried">Unmarried</label>
-              </div>
-            </div>
-            <div className='flex flex-col'>
-              <label className={`${label}`}>Marital Status</label><br />
-              <div>
-                <input
-                  type="radio"
-                  name="selfEmployed"
-                  value="Yes"
-                  checked={formData.selfEmployed === 'Yes'}
-                  onChange={handleInputChange}
-                />
-                <label htmlFor="married">Married</label>
-              </div>
-              <div>
-                <input
-                  type="radio"
-                  name="selfEmployed"
-                  value="No"
-                  checked={formData.selfEmployed === 'No'}
-                  onChange={handleInputChange}
-                />
-                <label htmlFor="unmarried">Unmarried</label>
-              </div>
-            </div>
-            <div className='flex flex-col'>
-              <label className={`${label}`}>dependents</label><br />
-              <div>
-                <input
-                  type="radio"
-                  name="dependents"
-                  value="married"
-                  checked={formData.dependents === '0'}
-                  onChange={handleInputChange}
-                />
-                <label htmlFor="0">0</label>
-              </div>
-              <div>
-                <input
-                  type="radio"
-                  name="dependents"
-                  value="1"
-                  checked={formData.dependents === '1'}
-                  onChange={handleInputChange}
-                />
-                <label htmlFor="1">1</label>
-              </div>
-              <div>
-                <input
-                  type="radio"
-                  name="dependents"
-                  value="2"
-                  checked={formData.dependents === '2'}
-                  onChange={handleInputChange}
-                />
-                <label htmlFor="2">2</label>
-              </div>
-              <div>
-                <input
-                  type="radio"
-                  name="dependents"
-                  value="3 or 3+"
-                  checked={formData.dependents === '3 or 3+'}
-                  onChange={handleInputChange}
-                />
-                <label htmlFor="1">3 or 3+</label>
-              </div>
-            </div>
+          </select>
+        </label>
+        </div>
+      
+      
 
+        <div className="mt-4">
+        
+            {/* {isDisable && (
+              <div id="style-one">
+                <div id="style-two" className="bg-white p-4 rounded-md shadow-md">
+                  <h3>{alertmsg}</h3>
+                  <h2 className="text-lg font-semibold">
+                    See Information about banks?
+                  </h2>
+                  <p>
+                    Visit our <Link to="/Blog">Blog</Link> content to know more!
+                  </p>
+                  <button
+                    onClick={closeModal}
+                    className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            )} */}
+<div className="flex justify-center items-center ">
+            <button
+              className={`${
+                isFormValid
+                  ? "text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                  : "text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 cursor-not-allowed"
+              } text-white px-4 py-2 w-56 rounded-md mt-4`}
+              onClick={openModal}
+              type="submit"
+              disabled={!isFormValid}
+            >
+              {isLoading ? "SIGNING............":"SIGN IN"}
+            </button>
+            </div>
           </div>
+      </form>
+  
 
-          <button type="submit" className=" mx-40 w-60 p-4 bg-red-400 text-white font-bold">submit</button>
-        </form>
-      </div>):<div><h1>login </h1></div>}
-    
+      <div>
+      
+      </div>
+      </div>
     </>
   );
 }
+
+export default Predictions;
