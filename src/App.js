@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   BrowserRouter as Router,
   Route,
   Routes,
+  Navigate,
+  useNavigate,
 } from "react-router-dom";
 import Home from "./page/Home";
 import Register from "./page/Register";
@@ -19,30 +21,43 @@ import { Dashboard } from "./page/Dashboard";
 import { EditRegisteredData } from "./page/EditRegisteredData";
 import { NotAcceptPage } from "./page/NotAcceptPage";
 import { PrivateRoute } from "./page/PrivateRoute";
+import PublicRoute from "./page/PublicRoute";
+import { ClickAnalysis } from "./page/ClickAnalysis";
+  
 function App() {
   const token = localStorage.getItem("admin_token");
-  console.log(token)
+  console.log(token);
+  const logintoken = localStorage.getItem("auth-token") || "";
+  console.log(logintoken)
   return (
     <div className="App">
       <Router>
-        {/* <Headers/> */}
         <AuthProvider>
           <Routes>
-            <Route path="/" element={<Pages />} />
-            <Route path="/home" element={<Home />} />
+            <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/logins" element={<Login />} />
-            <Route path="/adminlogin" element={<AdminLogin />} />  
+            {/* <Route path="/predictions" element={<Predictions/>}/> */}
+            <Route path="/adminlogin" element={<AdminLogin />} /> 
+            <Route path="/predictions" element={<Predictions/>}/> 
             <Route path="/notaccept" element={<NotAcceptPage/>}/>
-            <Route path="/predictiondata" element={<PredictionData />} />
-            <Route path="/predictions" element={<Predictions />} />
+            <Route path="/notaccept" element={<NotAcceptPage/>}/>
+            <Route path="/analysispage" element={<ClickAnalysis />} />
             <Route path="/interest/:data" element={<Interest />} />
-<Route element={<PrivateRoute token={token}/>}>
-<Route path="/dashboard" element={<Dashboard />} />
-<Route path="/registered" element={<RegisterDashboard />} />
-<Route path="/editregister/:id" element={<EditRegisteredData/>}/>
-<Route path="/registered" element={<RegisterDashboard />} />
-</Route>
+            {/* Render Predictions route only if user is logged in */}
+
+            <Route element={<PrivateRoute token={token}/>}>
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/registered" element={<RegisterDashboard />} />
+              <Route path="/editregister/:id" element={<EditRegisteredData/>}/>
+              <Route path="/registered" element={<RegisterDashboard />} />
+         
+            </Route>
+            {/* <Route path="/predictions" 
+element={<PublicRoute>
+  <Predictions />
+</PublicRoute>}/> */}
+
             <Route path="/register" element={<Register />} />
           </Routes>
         </AuthProvider>

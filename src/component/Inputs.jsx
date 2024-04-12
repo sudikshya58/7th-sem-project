@@ -3,7 +3,7 @@ import React from "react";
 export 
 const Inputs = ({ label, type, placeH, basis = 100,options, ...props }) => (
 
-    <div className={`basis-full w-full  rounded  border-black   border-2  bg-transparent py-2 pl-6 pr-10 text-black outline-none   dark:text-white  lg:basis-[${basis}%]`}>
+    <div className={`basis-full w-full  rounded  border-gray-200  border-2  bg-transparent py-2 pl-6 pr-10 text-black outline-none   dark:text-white  lg:basis-[${basis}%]`}>
       {type === 'checkbox' ? (
         <div className="flex  items-center">
           <input

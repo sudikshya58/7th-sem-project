@@ -7,9 +7,7 @@ import logo from "../Image/logo.png"
 const DashboardHeaders = (props) => {
   const navigate=useNavigate();
   const handleLogout = () => {
-  
     localStorage.removeItem('admin_token');
-
     navigate('/adminlogin');
   };
   return (

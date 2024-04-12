@@ -1,14 +1,15 @@
 import prishni from "../Image/prishni.jpg";
 import sudiksha from "../Image/sudiksha.jpg";
+import smriti from "../Image/smriti.jpg";
 export const MenuListArray2 = [
     {   
         title: 'Home',	
-        to: '/Home',
+        to: '/',
     },
-    // {   
-    //     title: 'About',	
-    //     to: '/about',
-    // },
+    {   
+        title: 'About',	
+        to: '/about',
+    },
     // {   
     //     title: 'Contact',	
     //     to: '/contact',
@@ -23,48 +24,48 @@ export const banks=
      [
       {
         "id":1,
-        "name": "Nepal Investment Bank",
-        "interestRate": 6.5
+        "name": "Nepal  Bank",
+        "interestRate": 12.47
       },
       {
         "id":2,
-        "name": "Standard Chartered Bank Nepal",
-        "interestRate": 7.0
+        "name": "Rastriya Banijaya",
+        "interestRate": 13.2
       },
       {
         "id":3,
-        "name": "Himalayan Bank",
-        "interestRate": 6.8
+        "name": "Nabil Bank",
+        "interestRate": 11.7
       },
       {
         "id":4,
         "name": "Machhapuchchhre Bank",
-        "interestRate": 6.2
+        "interestRate": 11
       },
       {
         "id":5,
-        "name": "Nabil Bank",
-        "interestRate": 6.7
+        "name": "Standard Chartered",
+        "interestRate": 12.36
       },
       {
         "id":6,
         "name": "Nepal Investment Bank",
-        "interestRate": 6.5
+        "interestRate": 9.5
       },
       {
         "id":7,
         "name": "Standard Chartered Bank Nepal",
-        "interestRate": 7.0
+        "interestRate": 11.86
       },
       {
         "id":8,
         "name": "Himalayan Bank",
-        "interestRate": 6.8
+        "interestRate": 12.3
       },
       {
         "id":4,
-        "name": "Machhapuchchhre Bank",
-        "interestRate": 6.2
+        "name": "Prime Bank",
+        "interestRate": 10.47
       },
      
       // Add more banks as needed
@@ -94,7 +95,7 @@ export const banks=
     name:"smriti",
     facebook:"",
     instagram:"",
-    Image:""
+    Image:smriti
   },
   {
     name:"prishni",

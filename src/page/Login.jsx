@@ -56,7 +56,7 @@ const Login = () => {
           localStorage.setItem("auth-token", response.data.access_token);
           localStorage.setItem("email", user.useremail);
         
-          navigate("/home");
+          navigate("/");
         }
         if (response.status === 201) {
           const responseData = response.data;
@@ -85,17 +85,17 @@ const Login = () => {
       }
     };
 
-    const token = localStorage.getItem("auth-token")  || ""
-    console.log(token)
+  //   const token = localStorage.getItem("auth-token")  || ""
+  //   console.log(token)
 
-  if(token){
-    return <Navigate to={"/Home"} />
-  }
+  // if(token){
+  //   return <Navigate to={"/predictions"} />
+  // }
 
 
     return (
       <div className="bg-white text-black admin-header   flex flex-col w-full h-full  justify-center  items-center max-w-4xl transition duration-1000 ease-out">
-      <div className="border  border-dotted rounded p-20   w-full overflow-y-hidden ">
+      <div className="border  border-dotted rounded p-12  w-full overflow-y-hidden ">
         {/* <h2 className="p-3 text-3xl font-bold text-center text-black">meroLoan</h2> */}
         {/* <div className="inline-block border-[1px] justify-center items-center  w-full border-blue-400 border-solid"></div> */}
         {/* <h3 className="text-xl font-semibold text-blue-400  text-center pt-2">
@@ -106,7 +106,7 @@ const Login = () => {
 
         <div className="flex flex-col gap-10 items-center justify-center">
           <input
-            className="  w-full xl:w-[70%] rounded  border-black  border-2   bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+            className="  w-full xl:w-[70%] rounded  border-gray-300 border  bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
             autoComplete="off"
             name="useremail"
             type="email"
@@ -114,7 +114,7 @@ const Login = () => {
             onChange={handleInput}
           />
           <input
-            className="  w-full xl:w-[70%] rounded  border-black  border-2  bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+            className="  w-full xl:w-[70%] rounded  border-gray-300  border  bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
             autoComplete="off"
             name="userpassword"
             type="password"
@@ -123,17 +123,17 @@ const Login = () => {
           />
 
           <button
-            className="w-[70%] cursor-pointer  rounded-lg font-bold border border-primary bg-primary p-4 text-white  transition hover:bg-opacity-90"
+            className="w-[60%] cursor-pointer  rounded-[60px] font-bold border bg-blue-400 p-4 text-white text-[24px]  transition hover:bg-opacity-90"
             onClick={handleSubmit}
             disabled={isLoading}
           >
-            {isLoading ? "siginin.....":"sign in"}
+            {isLoading ? "LOGIN......":"LOGIN"}
           </button>
         </div>
         {/* <div className="inline-block border-[1px] justify-center h border-blue-400 border-solid"></div> */}
-        <p className="text-blue-400 mt-4 text-center text-sm">Don't have an account?</p>
+        <p className="text-red-600 mt-4 text-center text-[18px]">Don't have an account?</p>
         <p
-          className="text-blue-400 mb-4 text-sm text-center  font-medium cursor-pointer"
+          className="text-r-400 mb-4 text-[18px] text-center  font-medium cursor-pointer"
           onClick={() => navigate('/register')}
         >
           Create a New Account?
@@ -150,7 +150,7 @@ const Login = () => {
       <div className="hidden md:block w-full basis-[50%] h-full ">
       <div className="h-full">
         <img
-          src="https://images.unsplash.com/photo-1633158829585-23ba8f7c8caf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          src="https://miro.medium.com/v2/resize:fit:1358/0*O75vAOsL8q3m-66U.jpg"
           alt="login"
           className="h-full w-full object-cover"
         />
@@ -159,7 +159,7 @@ const Login = () => {
      
       <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
             <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
-              <h2 className="mb-9 xl:text-3xl text-xl font-bold text-black dark:text-white text-center sm:text-title-xl2">
+              <h2 className="mb-3 xl:text-3xl text-xl font-bold text-black dark:text-white text-center sm:text-title-xl2">
                 SIGN IN  TO CREDENCE
               </h2>
               {<LoginForm /> }

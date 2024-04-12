@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Inputs } from '../component/Inputs';
+import { Dashboard_Layout } from '../component/DashboardLayout';
 
 export const EditRegister = ({ location }) => {
     const [form, setForm] = useState({
@@ -44,6 +45,7 @@ export const EditRegister = ({ location }) => {
 
     return (
         <>
+        <Dashboard_Layout />
             <div>EditRegister</div>
             <form className=" " onSubmit={handleSubmit}>
                 <div className="flex flex-col items-center p-10 justify-center gap-4">

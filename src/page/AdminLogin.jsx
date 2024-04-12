@@ -37,7 +37,7 @@ const AdminLogin = () => {
                 // Add a delay before redirecting
                 setTimeout(() => {
                     navigate("/dashboard");
-                }, 1000); // Redirect after 1 second (adjust as needed)
+                }, 2000); // Redirect after 1 second (adjust as needed)
             } else {
                 setErrMsg(data.error);
             }

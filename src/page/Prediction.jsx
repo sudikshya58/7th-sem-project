@@ -13,6 +13,15 @@ function Predictions() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [alertmsg, setAlertMsg] = useState("");
   const [isLoading,setIsLoading]=useState(false);
+  useEffect(() => {
+    // Check if access token exists in localStorage
+    const isAuthenticated = !!localStorage.getItem("auth-token");
+    if (!isAuthenticated) {
+      // If not authenticated, navigate to the login page
+      navigate("/logins");
+    }
+  }, []); // Empty dependency array ensures this effect runs only once on component mount
+
   function openModal() {
     setIsModalOpen(true);
   }
@@ -148,13 +157,13 @@ function Predictions() {
           console.log(apiResponse);
           const { loanAmountTerm, loanAmount } = data;
           console.log(data);
-          setAlertMsg(apiResponse["Remarks"]);
+          setAlertMsg(`Remarks: ${apiResponse["Remarks"]}, Accuracy: ${apiResponse["Accuracy"]}`);
           openModal();
           if (apiResponse["Remarks"] === 'Loan is acceptable!') {
             setTimeout(() => {
               closeModal();
               // Navigate to the interest page with loan amount and amount term as parameters
-              navigate(`/interest/:data?loanAmount=${loanAmount}&loanAmountTerm=${loanAmountTerm}`);
+              navigate(`/interest/:data?loanAmount=${loanAmount}&loanAmountTerm=${loanAmountTerm}&apiresposne=${apiResponse}`);
             }, 4000); // 4000 milliseconds = 4 seconds
           } else {
             navigate("/notaccept"); // Corrected typo and replaced "/other page" with "/other-page"
@@ -182,7 +191,8 @@ function Predictions() {
         });
     }
   }
-  
+
+
   
 
   const isInvalid =
@@ -240,7 +250,7 @@ function Predictions() {
         </label>
     
         <label className={`${divs}`}>
-          <h3 className={`${label}`}>Applicant Income </h3>
+          <h3 className={`${label}`}>Applicant Income(month/s) </h3>
           <input
              className={`${inputs}`}
             type="number"
@@ -287,7 +297,7 @@ function Predictions() {
         </label>
      
         <label className={`${divs}`}>
-          <h3 className={`${label}`}>Total Family Income </h3>
+          <h3 className={`${label}`}>Total Family Income(month/s) </h3>
           <input
              className={`${inputs}`}
             type="number"
