@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { Dashboard_Layout } from '../component/DashboardLayout';
 
 export const EditRegisteredData = () => {
     const navigate=useNavigate();
@@ -31,6 +32,7 @@ export const EditRegisteredData = () => {
 
     return (
         <>
+        <Dashboard_Layout />
             <div className="flex justify-center items-center h-[100vh]">
                 <div className="w-full max-w-xs">
                     <h1 className="text-center font-bold mb-4">

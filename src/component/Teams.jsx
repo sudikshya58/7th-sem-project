@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { TeamMember } from '.'
-
 export const Teams = () => {
   return (
   <>
@@ -16,7 +15,7 @@ export const Teams = () => {
     <div className="w-1/3 relative" key={index}>
       <Link to={""}>
         <div className="image-container">
-          <img src={item.Image} alt="p" className="h-[30rem] w-full object-fill" />
+          <img src={item.Image} alt="image" className="h-[30rem] w-full object-fill" />
         </div>
         <div className="absolute bottom-0 left-0 right-0 p-4 bg-gray-800 bg-opacity-50 text-center">
           <h5 className="text-white text-[20px] font-bold">{item.name}</h5>

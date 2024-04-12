@@ -199,7 +199,7 @@ export default function Register() {
 </div>
     </div>
     <div className=" w-full  flex items-cenetr justify-center">
-    <button className="w-[60%] cursor-pointer rounded-lg font-bold border  border-primary  p-4 text-white bg-black transition hover:bg-opacity-90" type="submit">Register</button>
+    <button className="w-[60%] cursor-pointer rounded-[30px] font-bold border   p-4 text-white bg-blue-400 transition hover:bg-opacity-90" type="submit">Register</button>
     </div>
 
 </form>

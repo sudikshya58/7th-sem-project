@@ -4,6 +4,7 @@ import { FaUser } from "react-icons/fa";
 import logo from "../Image/logo.png"
 
 import { MenuListArray2 } from '.';
+import Login from '../page/Login';
 
 const Headers = () => {
   const isAuthenticate=localStorage.getItem('auth-token')
@@ -43,14 +44,14 @@ const Headers = () => {
     // Remove the access token from local storage
     localStorage.removeItem('auth-token');
     localStorage.removeItem("email");
-    // localStorage.removeItem('accessToken')
-
-    // Navigate to the login page
     navigate('/logins');
   };
+  const handleLogin=()=>{
+    navigate("/logins")
+  }
 
   return (
-    <header className="header_in clearfix">
+    <header className="">
   <div
           className={`fixed top-0 left-0 px-20 w-full  h-[4.5rem]  flex justify-between   items-center z-[30] bg-white text-black  font-bold   shadow-lg  text-black-300 font-bold"
             } `}>
@@ -68,7 +69,7 @@ const Headers = () => {
               
           ))}
          
-          {isAuthenticate ?   <li onClick={handleLogout}>Logout</li> :null}
+          {isAuthenticate ?   <li onClick={handleLogout}>Logout</li> :<li className='cursor-pointer' onClick={handleLogin}>Login</li>}
         {isAuthenticate ? <li className='flex justify-center gap-3 items-center'> <FaUser/>  {userEmail}</li>:null}
         
         </ul>

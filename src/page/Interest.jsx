@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { banks } from "../component/index";
 import { useLocation } from 'react-router-dom';
 import Headers from '../component/Header';
+import { Link, useNavigate } from "react-router-dom";
 
 export const Interest = () => {
+    const navigate=useNavigate();
     const [selectedBank, setSelectedBank] = useState(null);
     const [simpleInterest, setSimpleInterest] = useState(0);
     const [timePeriod, setTimePeriod] = useState(1);
     const [principal, setPrincipal] = useState(0);
+    const [monthlyinterest,setmonthlyinterest]=useState(0);
 
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
@@ -32,10 +35,17 @@ export const Interest = () => {
         const clickedBank = banks[index];
         setSelectedBank(clickedBank);
         const interestRate = clickedBank.interestRate;
-        const interest = (principal * interestRate * timePeriod) / 100;
+        const monthlyinterestRate=interestRate/12;
+        const interest = (principal * interestRate * timePeriod/12) / 100;
+        const monthlyinterest=(principal * monthlyinterestRate * 1) / 100;
         setSimpleInterest(interest);
+        setmonthlyinterest(monthlyinterest);
        
     };
+    const clickAnalysis=()=>{
+    navigate('/analysispage');
+
+    }
 
     return (
     <>
@@ -47,7 +57,7 @@ export const Interest = () => {
                     <div className="px-6 py-4" >
                         <div className="font-bold text-xl mb-2">{item.name}</div>
                         <p className="text-gray-700 text-base">
-                            Interest Rate: {item.interestRate}%
+                            Rate: {item.interestRate}%
                         </p>
                     </div>
                 </div>
@@ -56,11 +66,15 @@ export const Interest = () => {
 
 <div className=' flex items-center justify-center mb-10 mt-6 '>
             {selectedBank && (
-                <div className="px-6  w-[24rem] max-w-[28rem] text-center h-28 shadow-xl bg-[#D6EAF8] py-4">
+                <div className="px-6  w-[28rem] max-w-[28rem] text-center h-36 shadow-xl bg-[#D6EAF8] py-4">
                     <p className='font-bold text-[20px] line-clamp-1'>Selected Bank: {selectedBank.name}</p>
-                    <p className='font-bold text-red-800  text-[20px]'>Simple Interest: {simpleInterest} Rs</p>
+                    <p className='font-bold text-red-800  text-[20px]'>Total Loan Installment Amount: {simpleInterest.toFixed(2)} Rs</p>
+                    <p className='font-bold text-red-800  text-[20px]'>Monthly pay: {monthlyinterest.toFixed(2)} Rs</p>
                 </div>
             )}
+            </div>
+<div className='' onClick={clickAnalysis}>
+            <button className='bg-blue-300 p-6 text-black font-bold' onClick={clickAnalysis}>Show Analysis</button>
             </div>
         </div>
         </>
