@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../../src/index.css";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { MdError } from "react-icons/md";
 import axios from "axios";
 import Headers from "../component/Header";

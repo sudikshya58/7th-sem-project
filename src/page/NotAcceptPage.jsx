@@ -1,6 +1,6 @@
 import React from 'react'
 import Headers from '../component/Header'
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 export const NotAcceptPage = () => {
   const navigate=useNavigate();

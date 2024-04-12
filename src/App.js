@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   BrowserRouter as Router,
   Route,
   Routes,
-  Navigate,
-  useNavigate,
+ 
 } from "react-router-dom";
 import Home from "./page/Home";
 import Register from "./page/Register";
@@ -13,15 +12,12 @@ import { AuthProvider } from "./component/auth";
 import Login from "./page/Login";
 import Predictions from "./page/Prediction";
 import { Interest } from "./page/Interest";
-import { Pages } from "./page/Pages";
 import AdminLogin from "./page/AdminLogin";
 import { RegisterDashboard } from "./page/RegisterDashboard";
-import { PredictionData } from "./page/PredictionDashboard";
 import { Dashboard } from "./page/Dashboard";
 import { EditRegisteredData } from "./page/EditRegisteredData";
 import { NotAcceptPage } from "./page/NotAcceptPage";
 import { PrivateRoute } from "./page/PrivateRoute";
-import PublicRoute from "./page/PublicRoute";
 import { ClickAnalysis } from "./page/ClickAnalysis";
   
 function App() {

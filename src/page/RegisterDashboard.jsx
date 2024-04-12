@@ -7,12 +7,7 @@ import { useNavigate } from 'react-router-dom';
 export const RegisterDashboard = () => {
     const [registeredData, setRegisteredData] = useState([]);
     const navigate=useNavigate();
-    const [selectedUserId, setSelectedUserId] = useState(null);
-    const [editedUserData, setEditedUserData] = useState({
-        username: '',
-        useremail: '',
-        userphone: ''
-    });
+  
     const iconClass = "text-xl";
     const heading =
   "py-4 text-xl font-bold text-gray-800 pl-4 p-10   bg-blue-100";

@@ -1,9 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [isLogin, setIsLogin] = useState(true);
   const navigate = useNavigate();
 
   const LoginForm = () => {

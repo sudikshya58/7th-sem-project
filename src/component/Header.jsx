@@ -4,13 +4,12 @@ import { FaUser } from "react-icons/fa";
 import logo from "../Image/logo.png"
 
 import { MenuListArray2 } from '.';
-import Login from '../page/Login';
 
 const Headers = () => {
   const isAuthenticate=localStorage.getItem('auth-token')
   const userEmail=localStorage.getItem('email');
     const navigate=useNavigate();
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [ setIsScrolled] = useState(false);
   const handleScroll = () => {
     const scrollY = window.scrollY;
     setIsScrolled(scrollY > 0);
@@ -26,19 +25,9 @@ const Headers = () => {
     activeSubmenu: null
   });
 
-  const handleMenuActive = (title) => {
-    setState((prevState) => ({
-      ...prevState,
-      active: prevState.active === title ? null : title
-    }));
-  };
 
-  const handleSubmenuActive = (title) => {
-    setState((prevState) => ({
-      ...prevState,
-      activeSubmenu: prevState.activeSubmenu === title ? null : title
-    }));
-  };
+
+ 
 
   const handleLogout = () => {
     // Remove the access token from local storage

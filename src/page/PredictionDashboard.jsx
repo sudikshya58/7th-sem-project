@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { MdEdit, MdOutlineDeleteOutline } from 'react-icons/md';
+import {  MdOutlineDeleteOutline } from 'react-icons/md';
 import { Dashboard_Layout } from '../component/DashboardLayout';
 
 export const PredictionData = () => {

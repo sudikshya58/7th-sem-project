@@ -18,13 +18,7 @@ export default function Register() {
 
     const [form, setForm] = useState(initialForm);
     const [alldata, setAllData] = useState([]);
-    const handleInputChange = (e) => {
-      const { name, value } = e.target;
-      setForm((prevForm) => ({
-        ...prevForm,
-        [name]: value,
-      }));
-    };
+   
   
     console.log(form)
     const validateInputs = () => {

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { banks } from "../component/index";
 import { useLocation } from 'react-router-dom';
 import Headers from '../component/Header';
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 export const Interest = () => {
     const navigate=useNavigate();
