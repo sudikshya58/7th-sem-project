@@ -19,6 +19,7 @@ import { EditRegisteredData } from "./page/EditRegisteredData";
 import { NotAcceptPage } from "./page/NotAcceptPage";
 import { PrivateRoute } from "./page/PrivateRoute";
 import { ClickAnalysis } from "./page/ClickAnalysis";
+import { PredictionData } from "./page/PredictionDashboard";
   
 function App() {
   const token = localStorage.getItem("admin_token");
@@ -47,6 +48,7 @@ function App() {
               <Route path="/registered" element={<RegisterDashboard />} />
               <Route path="/editregister/:id" element={<EditRegisteredData/>}/>
               <Route path="/registered" element={<RegisterDashboard />} />
+              <Route path="/predictiondata" element={<PredictionData/>}/>
          
             </Route>
             {/* <Route path="/predictions" 
